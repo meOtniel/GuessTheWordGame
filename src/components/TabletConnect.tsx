@@ -78,43 +78,37 @@ export function TabletConnect() {
         {candidates?.map((candidate) => (
           <div
             key={candidate.address}
-            className={`flex flex-wrap items-center gap-4 rounded-xl border p-3 ${
+            className={`flex flex-wrap items-start gap-4 rounded-xl border p-4 ${
               candidate.likely ? 'border-easy/50 bg-easy/5' : 'border-ink/10 bg-ink/5 opacity-70'
             }`}
           >
             {candidate.qr && (
               <div
-                className="h-28 w-28 shrink-0 rounded-lg bg-white p-1"
+                // The QR arrives as a fixed-size SVG, so it is pinned to the
+                // tile instead of being allowed to render at its own width.
+                className="ring-ink/10 h-32 w-32 shrink-0 overflow-hidden rounded-lg bg-white p-2 ring-1 [&>svg]:block [&>svg]:h-full [&>svg]:w-full"
                 dangerouslySetInnerHTML={{ __html: candidate.qr }}
               />
             )}
-            <div className="min-w-52 flex-1">
+            <div className="flex min-w-56 flex-1 flex-col items-start gap-2">
               <p className="text-ink-soft text-xs font-semibold tracking-wide uppercase">
                 {candidate.label}
                 {candidate.note && ` — ${candidate.note}`}
               </p>
-              <p className="font-display mt-1 text-lg font-bold break-all">{candidate.playUrl}</p>
-              <div className="mt-2 flex gap-2">
-                <Button variant="secondary" onClick={() => void copy(candidate.playUrl)}>
-                  {copied === candidate.playUrl ? 'Copiat!' : 'Copiază'}
-                </Button>
-              </div>
+              <p className="font-display text-lg font-bold break-all">{candidate.playUrl}</p>
+              <Button variant="secondary" onClick={() => void copy(candidate.playUrl)}>
+                {copied === candidate.playUrl ? 'Copiat!' : 'Copiază'}
+              </Button>
             </div>
           </div>
         ))}
       </div>
 
-      <div className="text-ink-soft mt-4 flex flex-col gap-1 text-sm">
-        <p>
-          <strong>1.</strong> Pune tableta pe aceeași rețea Wi-Fi ca laptopul.
-        </p>
-        <p>
-          <strong>2.</strong> Scanează codul sau tastează adresa în browserul tabletei.
-        </p>
-        <p>
-          <strong>3.</strong> Dacă nu merge: oprește VPN-ul pe laptop și permite Node.js în Windows Firewall.
-        </p>
-      </div>
+      <ol className="border-ink/10 text-ink-soft mt-5 flex list-decimal flex-col gap-1.5 border-t pt-4 pl-5 text-sm marker:font-bold">
+        <li>Pune tableta pe aceeași rețea Wi-Fi ca laptopul.</li>
+        <li>Scanează codul sau tastează adresa în browserul tabletei.</li>
+        <li>Dacă nu merge: oprește VPN-ul pe laptop și permite Node.js în Windows Firewall.</li>
+      </ol>
     </Card>
   )
 }
