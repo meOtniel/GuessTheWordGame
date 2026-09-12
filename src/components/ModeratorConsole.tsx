@@ -83,12 +83,14 @@ export function ModeratorConsole({ state, actions }: { state: PublicState; actio
         <Button
           size="lg"
           variant="secondary"
-          disabled={hintsLeft <= 0 || state.paused}
-          onClick={() => void actions.hint()}
+          disabled={hintsLeft <= 0 || !question.hintAvailable || state.paused}
+          onClick={() => void actions.hint(question.livePlacement)}
         >
           Literă ajutătoare
           <span className="text-ink-soft ml-2 text-xs font-normal">
-            −{question.hintCost}p · {plural(hintsLeft, 'rămasă', 'rămase')}
+            {hintsLeft > 0 && !question.hintAvailable
+              ? 'ultima literă e a lui'
+              : `−${question.hintCost}p acum · ${plural(hintsLeft, 'rămasă', 'rămase')}`}
           </span>
         </Button>
         <Button size="lg" variant="secondary" disabled={state.paused} onClick={() => void actions.judge(false)}>
@@ -99,8 +101,9 @@ export function ModeratorConsole({ state, actions }: { state: PublicState; actio
       <p className="text-ink-soft text-sm">
         Apasă <strong>Corect</strong> imediat ce invitatul spune cuvântul — punctajul se calculează în acel
         moment, deci nu mai aștepți să termine de atins literele.
-        {question.hintsUsed > 0 &&
-          ` ${plural(question.hintsUsed, 'literă ajutătoare folosită', 'litere ajutătoare folosite')}.`}
+        {question.hintsUsed > 0
+          ? ` ${plural(question.hintsUsed, 'literă ajutătoare folosită', 'litere ajutătoare folosite')}.`
+          : ` Încă fără ajutor — bonusul de +${question.cleanBonus} e în punctajul de mai sus.`}
       </p>
     </section>
   )

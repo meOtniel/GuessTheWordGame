@@ -62,9 +62,59 @@ export interface HintResult {
 }
 
 /**
- * Reveal one more letter: pick a random still-hidden letter slot, then lock a
- * tile bearing the right character into it. Any tile already sitting in that
- * slot is the caller's problem to bounce back to the pool.
+ * The letter slots a helper letter may still be spent on.
+ *
+ * Two things are off limits. Letters already revealed, obviously — and the
+ * unbroken run of correct letters the player has tapped in from the left,
+ * because paying full price to be told the first letter of a word you have
+ * already half-built is no help at all. The run is read in reading order and
+ * ends at the first empty or wrong slot: a letter that happens to be right
+ * *after* a mistake stays fair game, since skipping it would quietly confirm
+ * a guess the player has no business being sure of yet.
+ *
+ * Comes back empty when a single unknown slot is left. A helper letter may
+ * never complete the word, and because the board submits itself the moment the
+ * last tile lands, revealing that slot would not be a hint — it would be the
+ * answer.
+ */
+export function hintableSlots(
+  answer: string,
+  slots: Slot[],
+  revealedSlots: Record<number, string>,
+  placement: Record<number, string>,
+  tiles: Tile[],
+): Slot[] {
+  const normalized = normalizeRo(answer)
+  const byId = new Map(tiles.map((t) => [t.id, t.char]))
+  const letters = letterSlots(slots)
+  // Revealed letters outrank whatever the player had in that slot — the tablet
+  // bounces the loser back to the pool as soon as a hint lands.
+  const settled = { ...placement, ...revealedSlots }
+
+  let correct = 0
+  while (correct < letters.length) {
+    const { index } = letters[correct]
+    const tileId = settled[index]
+    if (!tileId || byId.get(tileId) !== normalized[index]) break
+    correct++
+  }
+
+  const open = letters.slice(correct).filter((s) => !(s.index in revealedSlots))
+  return open.length > 1 ? open : []
+}
+
+/**
+ * Reveal one more letter: always the leftmost slot still open to a hint, then
+ * lock a tile bearing the right character into it. Any tile already sitting in
+ * that slot is the caller's problem to bounce back to the pool.
+ *
+ * Left to right, not at random, and that is the whole point. A random letter
+ * makes one guest pay full price for the opening of the word and the next pay
+ * the same for an I buried in the middle — identical cost, wildly different
+ * help, decided by luck. Uncovering from the left gives every letter the same
+ * worth to everyone, which is the only thing that makes charging a fixed share
+ * for it honest. It also reads far better on the projector: the word builds
+ * from its first letter instead of sprouting in patches.
  *
  * Returns null when there is nothing left that may be revealed.
  */
@@ -72,18 +122,28 @@ export function chooseHint(
   answer: string,
   slots: Slot[],
   revealedSlots: Record<number, string>,
+  placement: Record<number, string>,
   tiles: Tile[],
-  seed: string,
 ): HintResult | null {
   const normalized = normalizeRo(answer)
-  const hidden = letterSlots(slots).filter((s) => !(s.index in revealedSlots))
-  if (hidden.length === 0) return null
+  // hintableSlots keeps reading order, so the head of the list is the first
+  // letter the player does not already have.
+  const [target, ...rest] = hintableSlots(answer, slots, revealedSlots, placement, tiles)
+  if (!target) return null
 
-  const rng = makeRng(seed)
-  const target = hidden[Math.floor(rng() * hidden.length)]
+  const candidates = [target, ...rest]
   const wanted = normalized[target.index]
 
-  const taken = new Set(Object.values(revealedSlots))
+  // Every slot outside the candidate list already holds the letter it should —
+  // revealed or correctly placed — so those tiles are spoken for. Without this,
+  // a repeated letter ("ANA") would let the hint yank the A the player got
+  // right out of its slot to satisfy the A it just chose to give away.
+  const taken = new Set<string>()
+  const candidateIndexes = new Set(candidates.map((s) => s.index))
+  for (const [slot, tileId] of Object.entries({ ...placement, ...revealedSlots })) {
+    if (!candidateIndexes.has(Number(slot))) taken.add(tileId)
+  }
+
   const tile = tiles.find((t) => t.char === wanted && !taken.has(t.id))
   if (!tile) return null
 

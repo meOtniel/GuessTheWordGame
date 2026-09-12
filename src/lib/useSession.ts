@@ -118,7 +118,9 @@ export function useSession(options: { host?: boolean } = {}) {
       reportPlacement: (placement: Record<number, string>) => void report('/api/placement', { placement }),
       /** Moderator verdict on a spoken answer, scored like a tapped one. */
       judge: (correct: boolean) => post('/api/judge', { correct }),
-      hint: () => post('/api/hint'),
+      /** The board goes with the request so a hint never re-reveals a letter
+       *  the player has already placed correctly. */
+      hint: (placement: Record<number, string>) => post('/api/hint', { placement }),
       expire: () => post('/api/expire'),
       pause: () => post('/api/admin', { action: 'pause' }),
       resume: () => post('/api/admin', { action: 'resume' }),

@@ -98,17 +98,40 @@ Totul funcționează identic.
 | | Ușoară | Medie | Grea |
 |---|---|---|---|
 | Timp | 30s | 40s | 50s |
-| Punctaj maxim | 100 | 150 | 200 |
-| Cost literă ajutătoare | −20 | −30 | −40 |
+| Valoare de bază | 100 | 150 | 200 |
+| Bonus „fără ajutor” | +10 | +15 | +20 |
+| Maxim pe întrebare | 110 | 165 | 220 |
 
-Punctajul scade pe măsură ce trece timpul, până la 30% din valoarea de bază la
-ultima secundă. Un răspuns corect valorează întotdeauna cel puțin 10 puncte.
-O întrebare expirată valorează 0. O tură perfectă înseamnă 800 de puncte.
+**Timpul.** Întrebarea pornește de la valoarea ei de bază și scade treptat, până
+la 30% în ultima secundă. Cronometrul se rotunjește la secundă, deci cât timp
+cifra de pe tabletă nu s-a schimbat, atâtea puncte se acordă — nimeni nu pierde
+puncte în timpul în care gazda apasă butonul.
+
+**Literele ajutătoare.** Fiecare literă costă partea ei din cuvânt: la un cuvânt
+de 8 litere o literă ia a opta parte din cât valorează răspunsul în acel moment,
+la unul de 16 litere ia a șaisprezecea. Cu cât cuvântul e mai lung, cu atât o
+literă ajută mai puțin — și cu atât costă mai puțin. Prețul nu se oprește
+niciodată: și a zecea literă costă ceva, așa că nu există momentul în care merită
+să dezvălui tot cuvântul degeaba.
+
+Literele se descoperă **de la stânga la dreapta**, nu la întâmplare. Așa fiecare
+literă valorează la fel pentru toată lumea — altfel un invitat plătea plin
+prețul pentru prima literă a cuvântului și altul, același preț, pentru un „I” din
+mijloc. Ultima literă rămâne mereu a jucătorului.
+
+**Bonusul.** Un răspuns dat fără nicio literă ajutătoare primește 10% peste
+valoarea de bază. Se pierde la prima literă cerută și nu mai revine — de aceea
+prima literă e cea mai scumpă. Butonul de pe tabletă arată mereu cât costă
+**chiar acum** următoarea literă, bonusul pierdut inclus.
+
+O întrebare expirată valorează 0. O tură perfectă înseamnă 880 de puncte.
 
 Greșelile nu se penalizează — poți încerca de câte ori vrei până expiră timpul.
 
-La egalitate de puncte, departajarea se face după numărul de litere ajutătoare
-folosite, apoi după timpul total.
+La egalitate de puncte, departajarea se face după numărul de cuvinte ghicite,
+apoi după timpul total, apoi după numărul de încercări greșite. Literele
+ajutătoare nu departajează: sunt deja plătite în punctaj, iar a le număra încă o
+dată ar taxa de două ori același ajutor.
 
 ---
 
@@ -120,7 +143,10 @@ Panoul gazdei rămâne util cât timp se joacă:
   setat o oră țintă, panoul devine portocaliu când începi să întârzii.
 - **Pauză** — oprește cronometrul. Ecranul jucătorului acoperă întrebarea.
 - **Sari peste întrebare** — pentru o întrebare greșită sau ambiguă. Nu
-  penalizează jucătorul: întrebarea dispare pur și simplu din tura lui.
+  penalizează jucătorul: primește în loc altă întrebare, de aceeași dificultate
+  și din aceeași clasă tematică, nefolosită de nimeni în sesiune. Tura lui
+  valorează în continuare exact cât a celorlalți. Doar dacă s-au epuizat
+  întrebările de rezervă tura rămâne mai scurtă.
 - **Timp pe întrebare** — îl poți scurta în timpul jocului. E pârghia corectă
   dacă rămâi în urmă: punctajul se raportează la timpul fiecărei întrebări,
   deci clasamentul rămâne comparabil.

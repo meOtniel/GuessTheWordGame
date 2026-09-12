@@ -9,6 +9,12 @@ import type { SessionConfig } from '@/lib/types'
  * eight-player session — comfortably inside the 40-minute slot even if every
  * single question runs to timeout.
  *
+ * On scoring: a question is worth its base the instant it starts and decays
+ * linearly to 30% of that at the buzzer. Each helper letter then takes its own
+ * share of the word off whatever is left — a letter of an eight-letter answer
+ * costs an eighth — and solving with no letters at all pays 10% on top. A
+ * perfect turn is 3*110 + 2*165 + 220 = 880.
+ *
  * Every value here is editable on the setup screen.
  */
 export const DEFAULT_CONFIG: SessionConfig = {
@@ -16,7 +22,8 @@ export const DEFAULT_CONFIG: SessionConfig = {
   profile: { easy: 3, medium: 2, hard: 1 },
   timeouts: { easy: 30, medium: 40, hard: 50 },
   basePoints: { easy: 100, medium: 150, hard: 200 },
-  hintCostRatio: 0.2,
+  hintPenaltyShare: 1,
+  cleanBonusRatio: 0.1,
   timeFloor: 0.3,
   minScore: 10,
   categoryIds: [],

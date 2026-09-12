@@ -30,6 +30,18 @@ export default function PlayPage() {
     void actions.expire()
   }, [remaining, running, question, actions, state?.currentPlayer?.id])
 
+  // The tablet's own board, kept here as well as on the server: a helper letter
+  // is chosen against it, so it must be the board as it stands right now rather
+  // than whatever the last mirror report happened to carry.
+  const placementRef = useRef<Record<number, string>>({})
+  const handlePlacementChange = useCallback(
+    (placement: Record<number, string>) => {
+      placementRef.current = placement
+      actions.reportPlacement(placement)
+    },
+    [actions],
+  )
+
   const handleSubmit = useCallback(
     async (placement: Record<number, string>) => {
       setBusy(true)
@@ -123,7 +135,7 @@ export default function PlayPage() {
             disabled={busy || state.paused}
             onSubmit={handleSubmit}
             wrongSignal={wrongSignal}
-            onPlacementChange={actions.reportPlacement}
+            onPlacementChange={handlePlacementChange}
           />
         </div>
 
@@ -131,17 +143,24 @@ export default function PlayPage() {
           <Button
             variant="secondary"
             size="lg"
-            disabled={hintsLeft <= 0 || state.paused}
-            onClick={() => void actions.hint()}
+            disabled={hintsLeft <= 0 || !question.hintAvailable || state.paused}
+            onClick={() => void actions.hint(placementRef.current)}
           >
             Literă ajutătoare
             <span className="text-ink-soft ml-2 text-sm font-normal">
-              −{question.hintCost}p · {plural(hintsLeft, 'rămasă', 'rămase')}
+              {hintsLeft > 0 && !question.hintAvailable
+                ? 'ultima literă e a ta'
+                : `−${question.hintCost}p acum · ${plural(hintsLeft, 'rămasă', 'rămase')}`}
             </span>
           </Button>
           <div className="text-right">
             <p className="text-ink-soft text-xs tracking-wide uppercase">Valorează acum</p>
             <p className="font-display text-plum text-4xl font-bold tabular-nums">{question.livePoints}</p>
+            {/* Says out loud what the first helper letter would hand back, so the
+                button's price is never a surprise. */}
+            {question.cleanBonus > 0 && (
+              <p className="text-gold text-xs font-semibold">include +{question.cleanBonus} fără ajutor</p>
+            )}
           </div>
         </footer>
       </main>

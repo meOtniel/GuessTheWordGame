@@ -33,11 +33,17 @@ export interface SessionConfig {
   timeouts: ByDifficulty<number>
   /** Points a perfect (instant, hint-free) answer is worth, by difficulty. */
   basePoints: ByDifficulty<number>
-  /** Fraction of base deducted per helper letter. */
-  hintCostRatio: number
+  /**
+   * How much of the answer one helper letter is priced as. At 1 a letter costs
+   * exactly its share of the word (1/8 of an eight-letter answer), so the cut
+   * always matches the help; below 1 letters are cheaper, above 1 dearer.
+   */
+  hintPenaltyShare: number
+  /** Bonus for an unaided solve, as a fraction of the difficulty's base. */
+  cleanBonusRatio: number
   /** Floor of the time-decay multiplier — a buzzer-beater still earns this share. */
   timeFloor: number
-  /** A correct answer never scores below this, however slow or hinted. */
+  /** Floor the time decay alone may not go below. Helper letters cut into it. */
   minScore: number
   categoryIds: string[]
   themedPerPlayer: number
@@ -123,6 +129,7 @@ export interface LeaderboardRow {
   hintsUsed: number
   totalTimeMs: number
   correctCount: number
+  wrongAttempts: number
   questionCount: number
   rank: number
 }
@@ -151,6 +158,7 @@ export interface PublicQuestion {
   categoryIcon: string
   timeoutSec: number
   basePoints: number
+  /** What the NEXT helper letter costs at this instant, bonus forfeit included. */
   hintCost: number
   tiles: Tile[]
   slots: Slot[]
@@ -164,6 +172,14 @@ export interface PublicQuestion {
   livePlacement: Record<number, string>
   hintsUsed: number
   maxHints: number
+  /** The bonus still on the table for solving unaided — 0 once a letter is spent. */
+  cleanBonus: number
+  /**
+   * Whether a helper letter would actually reveal anything. False once the only
+   * letters left are ones the player has already got right — the button greys
+   * out rather than taking a point off for nothing.
+   */
+  hintAvailable: boolean
   remainingMs: number
   livePoints: number
   wrongAttempts: number

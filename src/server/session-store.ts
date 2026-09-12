@@ -1,5 +1,5 @@
-import { answersMatch, normalizeRo } from '@/lib/normalize'
-import { buildSlots, buildTiles, chooseHint, letterSlots, maxHints, readPlacement } from '@/lib/tiles'
+import { answerLetters, answersMatch, normalizeRo } from '@/lib/normalize'
+import { buildSlots, buildTiles, chooseHint, hintableSlots, letterSlots, maxHints, readPlacement } from '@/lib/tiles'
 import type {
   Attempt,
   ByDifficulty,
@@ -13,12 +13,21 @@ import type {
   Question,
   Session,
   SessionConfig,
+  Theme,
   TurnSummary,
 } from '@/lib/types'
 import { DEFAULT_CONFIG, PACE_ESTIMATE } from './defaults'
 import { drawSession } from './draw'
 import { loadLastSessionSync, loadSessionSync, saveLastSession, schedulePersist } from './persistence'
-import { buildLeaderboard, hintCost, playerPoints, scoreCorrect } from './scoring'
+import {
+  buildLeaderboard,
+  cleanBonus,
+  nextHintCost,
+  playerPoints,
+  questionMax,
+  scoreCorrect,
+  type ScoreInput,
+} from './scoring'
 
 export interface CreateSessionInput {
   playerNames: string[]
@@ -70,6 +79,10 @@ const globalRef = globalThis as unknown as { __ghicesteStore?: Store }
  */
 function rehydrate(session: Session | null): Session | null {
   if (!session) return null
+  // A session saved by an older build is missing whatever the config has gained
+  // since. Filling the gaps from the defaults keeps a mid-game restart working
+  // instead of scoring the rest of the evening against undefined.
+  session.config = { ...DEFAULT_CONFIG, ...session.config }
   if (session.phase === 'question') {
     const now = Date.now()
     // Credit back everything between the last save and now — that whole span
@@ -112,6 +125,27 @@ function currentQuestion(session: Session): Question | null {
 
 function timeoutMsFor(session: Session, question: Question): number {
   return session.config.timeouts[question.difficulty] * 1000
+}
+
+/**
+ * Everything the scorer needs about the question in play, assembled in one
+ * place so the live readout, the tapped answer and the moderator's verdict can
+ * never drift apart on which rules they used.
+ */
+function scoreInputFor(session: Session, question: Question, elapsed: number, hintsUsed: number): ScoreInput {
+  const { basePoints, timeouts, hintPenaltyShare, cleanBonusRatio, timeFloor, minScore } = session.config
+  return {
+    difficulty: question.difficulty,
+    elapsedMs: elapsed,
+    hintsUsed,
+    letterCount: answerLetters(question.answer).length,
+    basePoints,
+    timeouts,
+    hintPenaltyShare,
+    cleanBonusRatio,
+    timeFloor,
+    minScore,
+  }
 }
 
 // --- mutation plumbing ------------------------------------------------------
@@ -210,8 +244,16 @@ export function setLivePlacement(placement: Record<number, string>): PublicState
   const session = store.session
   if (!session || session.phase !== 'question') return publicState()
 
-  // Keep only tiles that exist and slots that can actually hold a letter, so a
-  // malformed report can't paint characters into the gaps between words.
+  store.live = { token: liveToken(session), placement: cleanPlacement(session, placement) }
+  return commitLive()
+}
+
+/**
+ * Keep only tiles that exist and slots that can actually hold a letter, so a
+ * malformed report can't paint characters into the gaps between words — or,
+ * where a hint reads the board, invent a correct prefix that isn't there.
+ */
+function cleanPlacement(session: Session, placement: Record<number, string>): Record<number, string> {
   const tileIds = new Set(session.tiles.map((t) => t.id))
   const letterIndexes = new Set(letterSlots(session.slots).map((s) => s.index))
   const clean: Record<number, string> = {}
@@ -219,9 +261,7 @@ export function setLivePlacement(placement: Record<number, string>): PublicState
     const index = Number(slot)
     if (letterIndexes.has(index) && tileIds.has(tileId)) clean[index] = tileId
   }
-
-  store.live = { token: liveToken(session), placement: clean }
-  return commitLive()
+  return clean
 }
 
 // --- lifecycle --------------------------------------------------------------
@@ -321,20 +361,7 @@ function recordAttempt(session: Session, correct: boolean, elapsed: number): voi
   if (!question) return
   const player = session.players[session.currentPlayerIndex]
   const hintsUsed = Object.keys(session.revealedSlots).length
-  const { basePoints, timeouts, hintCostRatio, timeFloor, minScore } = session.config
-
-  const points = correct
-    ? scoreCorrect({
-        difficulty: question.difficulty,
-        elapsedMs: elapsed,
-        hintsUsed,
-        basePoints,
-        timeouts,
-        hintCostRatio,
-        timeFloor,
-        minScore,
-      })
-    : 0
+  const points = correct ? scoreCorrect(scoreInputFor(session, question, elapsed, hintsUsed)) : 0
 
   const attempt: Attempt = {
     questionId: question.id,
@@ -406,7 +433,14 @@ export function judgeAnswer(correct: boolean): PublicState {
   return commit()
 }
 
-export function requestHint(): PublicState {
+/**
+ * `placement` is the tablet's own board, sent along with the request rather
+ * than read from the live mirror: the mirror is debounced, and a hint tapped
+ * straight after a tile lands must not be judged against a board one tap old.
+ * The moderator's copy of the button passes the mirror, which is the best it
+ * has. Either way the letters the player already has right are spared.
+ */
+export function requestHint(placement: Record<number, string> = {}): PublicState {
   const session = getStore().session
   if (!session || session.phase !== 'question' || session.pausedAt !== null) return publicState()
   const question = currentQuestion(session)
@@ -419,8 +453,8 @@ export function requestHint(): PublicState {
     question.answer,
     session.slots,
     session.revealedSlots,
+    cleanPlacement(session, placement),
     session.tiles,
-    `${session.id}:${question.id}:${used}`,
   )
   if (!hint) return publicState()
 
@@ -512,16 +546,24 @@ export function resume(): PublicState {
 /**
  * Drop a broken question (a typo, an ambiguous clue) from this player's turn.
  *
- * It is removed rather than marked wrong: the player should not be penalised
- * for the host's dataset. Their question count drops, which the leaderboard
- * shows alongside the total so the ranking stays honest.
+ * It is replaced rather than simply deleted. The player must not be penalised
+ * for the host's dataset, and deleting alone did penalise them: the leaderboard
+ * ranks on total points, so a guest left with five questions where everyone else
+ * had six was quietly ranked below people they had actually matched. A fresh
+ * question of the same difficulty keeps every turn worth the same maximum.
+ *
+ * Only when the reserve is dry does the question simply disappear, and then the
+ * shortened turn shows in the leaderboard's question count.
  */
 export function skipQuestion(): PublicState {
   const session = getStore().session
   if (!session || (session.phase !== 'question' && session.phase !== 'reveal')) return publicState()
   const player = session.players[session.currentPlayerIndex]
 
-  player.questions.splice(session.currentQuestionIndex, 1)
+  const dropped = player.questions[session.currentQuestionIndex]
+  const replacement = dropped ? drawReplacement(session, dropped) : null
+  if (replacement) player.questions.splice(session.currentQuestionIndex, 1, replacement)
+  else player.questions.splice(session.currentQuestionIndex, 1)
   if (session.phase === 'reveal') player.attempts.pop()
 
   if (session.currentQuestionIndex >= player.questions.length) {
@@ -601,10 +643,11 @@ function buildPublicQuestion(session: Session, now: number): PublicQuestion | nu
   if (!question) return null
 
   const player = session.players[session.currentPlayerIndex]
-  const { basePoints, timeouts, hintCostRatio, timeFloor, minScore } = session.config
+  const { basePoints, timeouts } = session.config
   const elapsed = elapsedMs(session, now)
   const limit = timeoutMsFor(session, question)
   const hintsUsed = Object.keys(session.revealedSlots).length
+  const scoring = scoreInputFor(session, question, elapsed, hintsUsed)
 
   return {
     number: session.currentQuestionIndex + 1,
@@ -615,38 +658,81 @@ function buildPublicQuestion(session: Session, now: number): PublicQuestion | nu
     categoryIcon: categoryIconFor(question),
     timeoutSec: timeouts[question.difficulty],
     basePoints: basePoints[question.difficulty],
-    hintCost: hintCost(question.difficulty, basePoints, hintCostRatio),
+    hintCost: nextHintCost(scoring),
     tiles: session.tiles,
     slots: session.slots,
     revealedSlots: session.revealedSlots,
     livePlacement: liveFor(session),
     hintsUsed,
     maxHints: maxHints(question.answer),
+    cleanBonus: cleanBonus(scoring),
+    // Read against the live mirror, which is all a button's enabled state
+    // needs: the request itself re-checks against the board the tablet sends.
+    hintAvailable:
+      hintsUsed < maxHints(question.answer) &&
+      hintableSlots(question.answer, session.slots, session.revealedSlots, liveFor(session), session.tiles).length > 0,
     remainingMs: Math.max(0, limit - elapsed),
-    livePoints: scoreCorrect({
-      difficulty: question.difficulty,
-      elapsedMs: elapsed,
-      hintsUsed,
-      basePoints,
-      timeouts,
-      hintCostRatio,
-      timeFloor,
-      minScore,
-    }),
+    livePoints: scoreCorrect(scoring),
     wrongAttempts: session.wrongAttempts,
   }
 }
 
-// Category display data is injected by the API layer (it owns dataset loading),
-// so the store stays free of filesystem concerns.
-let categoryLookup: Map<string, { name: string; icon: string }> = new Map()
+// Category data is injected by the API layer (it owns dataset loading), so the
+// store stays free of filesystem concerns. The whole dataset is kept, not just
+// the display names: replacing a skipped question needs the question pools too.
+let categoryLookup: Map<string, Category> = new Map()
 
 export function setCategoryLookup(categories: Category[]): void {
-  categoryLookup = new Map(categories.map((c) => [c.id, { name: c.name, icon: c.icon }]))
+  categoryLookup = new Map(categories.map((c) => [c.id, c]))
 }
 
 function categoryNameFor(question: Question): string {
   return categoryLookup.get(question.categoryId)?.name ?? question.categoryId
+}
+
+function themeOf(question: Question): Theme | null {
+  return categoryLookup.get(question.categoryId)?.theme ?? null
+}
+
+/**
+ * A stand-in for a question the host has thrown out: same difficulty, same
+ * theme class where the reserve allows, never one already dealt anywhere in this
+ * session.
+ *
+ * Preference order among what is left: a category this player has not already
+ * seen, then the deepest remaining pool — the same "leave the thin cells in
+ * reserve" rule the opening deal runs on, so pulling a replacement mid-session
+ * does not starve the players still to come.
+ *
+ * Returns null when the reserve is genuinely dry.
+ */
+function drawReplacement(session: Session, dropped: Question): Question | null {
+  const dealt = new Set(session.players.flatMap((p) => p.questions.map((q) => q.id)))
+  const player = session.players[session.currentPlayerIndex]
+  const ownCategories = new Set(player.questions.map((q) => q.categoryId))
+  const wantedTheme = themeOf(dropped)
+
+  const pools = session.config.categoryIds
+    .map((id) => categoryLookup.get(id))
+    .filter((c): c is Category => c !== undefined)
+    .map((c) => ({
+      category: c,
+      pool: c.questions.filter((q) => q.difficulty === dropped.difficulty && !dealt.has(q.id)),
+    }))
+    .filter((entry) => entry.pool.length > 0)
+
+  if (pools.length === 0) return null
+
+  // Theme first: the two guaranteed themed questions per player are a promise
+  // the replacement has to keep. Only if that class is empty do we borrow.
+  const themed = wantedTheme === null ? pools : pools.filter((e) => e.category.theme === wantedTheme)
+  const eligible = themed.length > 0 ? themed : pools
+
+  const best = eligible
+    .map((entry) => ({ ...entry, fresh: ownCategories.has(entry.category.id) ? 1 : 0 }))
+    .sort((a, b) => a.fresh - b.fresh || b.pool.length - a.pool.length)[0]
+
+  return best.pool[0]
 }
 
 function categoryIconFor(question: Question): string {
@@ -671,7 +757,7 @@ function buildTurnSummary(session: Session): TurnSummary | null {
     }
   })
 
-  const maxPoints = player.questions.reduce((sum, q) => sum + session.config.basePoints[q.difficulty], 0)
+  const maxPoints = player.questions.reduce((sum, q) => sum + questionMax(session.config, q.difficulty), 0)
   return { playerName: player.name, points: playerPoints(player), maxPoints, rows }
 }
 
