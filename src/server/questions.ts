@@ -73,10 +73,10 @@ export async function loadCategories(force = false): Promise<LoadResult> {
         continue
       }
       const letters = answerLetters(q.answer).length
-      if (letters < 8 || letters > 16) {
+      if (letters < 4 || letters > 16) {
         issues.push({
           file,
-          message: `"${q.id}": răspunsul "${q.answer}" are ${plural(letters, 'literă', 'litere')} (8-16 permise)`,
+          message: `"${q.id}": răspunsul "${q.answer}" are ${plural(letters, 'literă', 'litere')} (4-16 permise)`,
         })
         continue
       }
