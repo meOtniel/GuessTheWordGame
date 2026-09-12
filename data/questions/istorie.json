@@ -1,0 +1,32 @@
+{
+  "id": "istorie",
+  "name": "Istorie",
+  "theme": "general",
+  "icon": "🏛️",
+  "questions": [
+    {"id": "ist-001", "difficulty": "easy", "prompt": "Epoca de înflorire artistică pornită din Florența secolului al XV-lea.", "answer": "RENAȘTEREA"},
+    {"id": "ist-002", "difficulty": "easy", "prompt": "Germanul care a tipărit prima Biblie cu litere mobile de metal.", "answer": "GUTENBERG"},
+    {"id": "ist-003", "difficulty": "easy", "prompt": "Capitala Imperiului Bizantin, căzută în mâinile otomanilor în 1453.", "answer": "CONSTANTINOPOL"},
+    {"id": "ist-004", "difficulty": "easy", "prompt": "Faraonul copil al cărui mormânt a fost găsit aproape neatins în 1922.", "answer": "TUTANKHAMON"},
+    {"id": "ist-005", "difficulty": "easy", "prompt": "Împăratul francez înfrânt definitiv la Waterloo și exilat pe Sfânta Elena.", "answer": "NAPOLEON"},
+    {"id": "ist-006", "difficulty": "easy", "prompt": "Domnitorul Moldovei despre care se spune că ridica o biserică după fiecare biruință.", "answer": "ȘTEFAN CEL MARE"},
+    {"id": "ist-007", "difficulty": "easy", "prompt": "Ce a proclamat România la 9 mai 1877, rupând legătura cu Poarta Otomană.", "answer": "INDEPENDENȚA"},
+    {"id": "ist-008", "difficulty": "easy", "prompt": "Scrierea egipteană descifrată cu ajutorul Pietrei din Rosetta.", "answer": "HIEROGLIFE"},
+    {"id": "ist-009", "difficulty": "easy", "prompt": "Domnitorul care a strâns pentru prima dată cele trei țări românești sub o singură stăpânire, în 1600.", "answer": "MIHAI VITEAZUL"},
+    {"id": "ist-010", "difficulty": "medium", "prompt": "Regele babilonian al cărui cod de legi este săpat pe o stelă de diorit.", "answer": "HAMMURABI"},
+    {"id": "ist-011", "difficulty": "medium", "prompt": "Trecătoarea în care trei sute de spartani au ținut piept armatei persane.", "answer": "TERMOPILE"},
+    {"id": "ist-012", "difficulty": "medium", "prompt": "Documentul smuls regelui Ioan fără de Țară în 1215, temelia libertăților engleze.", "answer": "MAGNA CARTA"},
+    {"id": "ist-013", "difficulty": "medium", "prompt": "Tribunalul bisericesc medieval însărcinat cu urmărirea ereziilor.", "answer": "INCHIZIȚIA"},
+    {"id": "ist-014", "difficulty": "medium", "prompt": "Provincia a cărei unire cu România a fost votată la Alba Iulia, în 1918.", "answer": "TRANSILVANIA"},
+    {"id": "ist-015", "difficulty": "medium", "prompt": "Cetatea nord-africană a lui Hannibal, rasă de romani la capătul războaielor punice.", "answer": "CARTAGINA"},
+    {"id": "ist-016", "difficulty": "medium", "prompt": "Palatul în a cărui Galerie a Oglinzilor s-a semnat tratatul care a încheiat Primul Război Mondial.", "answer": "VERSAILLES"},
+    {"id": "ist-017", "difficulty": "medium", "prompt": "Orașul egiptean al farului și al marii biblioteci, întemeiat de Alexandru Macedon.", "answer": "ALEXANDRIA"},
+    {"id": "ist-018", "difficulty": "medium", "prompt": "Capitala regatului dac, apărată de ziduri de piatră în Munții Orăștiei.", "answer": "SARMIZEGETUSA"},
+    {"id": "ist-019", "difficulty": "hard", "prompt": "Râul pe care Cezar l-a trecut cu legiunile sale, pornind războiul civil.", "answer": "RUBICONUL"},
+    {"id": "ist-020", "difficulty": "hard", "prompt": "Cercul de pietre din câmpia Salisbury, ridicat acum peste patru mii de ani.", "answer": "STONEHENGE"},
+    {"id": "ist-021", "difficulty": "hard", "prompt": "Pacea din 1648 care a pus capăt Războiului de Treizeci de Ani.", "answer": "WESTFALIA"},
+    {"id": "ist-022", "difficulty": "hard", "prompt": "Capitala aztecă ridicată pe un lac, peste care s-a construit apoi orașul Mexico.", "answer": "TENOCHTITLAN"},
+    {"id": "ist-023", "difficulty": "hard", "prompt": "Negustorul venețian care a povestit Europei despre curtea lui Kublai Han.", "answer": "MARCO POLO"},
+    {"id": "ist-024", "difficulty": "hard", "prompt": "Curentul secolului al XVIII-lea care a așezat rațiunea mai presus de tradiție.", "answer": "ILUMINISMUL"}
+  ]
+}

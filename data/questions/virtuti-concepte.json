@@ -1,0 +1,32 @@
+{
+  "id": "virtuti-concepte",
+  "name": "Virtuți și credință",
+  "theme": "christian",
+  "icon": "🕊️",
+  "questions": [
+    {"id": "vc-001", "difficulty": "easy", "prompt": "Roada Duhului care se vede cel mai bine atunci când lucrurile întârzie.", "answer": "RĂBDAREA"},
+    {"id": "vc-002", "difficulty": "easy", "prompt": "Virtutea potrivnică mândriei, pe care Isus a arătat-o spălând picioarele ucenicilor.", "answer": "SMERENIA"},
+    {"id": "vc-003", "difficulty": "easy", "prompt": "Mila arătată cuiva care nu o merită.", "answer": "ÎNDURAREA"},
+    {"id": "vc-004", "difficulty": "easy", "prompt": "Ce a adus înapoi singurul lepros din zece, după ce a fost curățit.", "answer": "RECUNOȘTINȚA"},
+    {"id": "vc-005", "difficulty": "easy", "prompt": "Însușirea pentru care cei ce o au vor moșteni pământul.", "answer": "BLÂNDEȚEA"},
+    {"id": "vc-006", "difficulty": "easy", "prompt": "Ce trebuie dat de șaptezeci de ori câte șapte.", "answer": "IERTAREA"},
+    {"id": "vc-007", "difficulty": "easy", "prompt": "Însușirea celui care rămâne același și atunci când nu îl vede nimeni.", "answer": "STATORNICIA"},
+    {"id": "vc-008", "difficulty": "easy", "prompt": "Înfrânarea poftelor, cea din urmă roadă a Duhului din lista lui Pavel.", "answer": "CUMPĂTAREA"},
+    {"id": "vc-009", "difficulty": "easy", "prompt": "Sora credinței și a dragostei, în cele trei care rămân.", "answer": "NĂDEJDEA"},
+    {"id": "vc-010", "difficulty": "medium", "prompt": "Ce au vestit îngerii oamenilor în noaptea Nașterii, alături de pace.", "answer": "BUNĂVOINȚA"},
+    {"id": "vc-011", "difficulty": "medium", "prompt": "Întoarcerea care schimbă și mintea, și drumul.", "answer": "POCĂINȚA"},
+    {"id": "vc-012", "difficulty": "medium", "prompt": "Starea pe care Avraam a primit-o socotită prin credință, nu prin fapte.", "answer": "NEPRIHĂNIREA"},
+    {"id": "vc-013", "difficulty": "medium", "prompt": "Darul pe care Solomon l-a cerut în locul bogăției și al vieții lungi.", "answer": "ÎNȚELEPCIUNEA"},
+    {"id": "vc-014", "difficulty": "medium", "prompt": "Ce a biruit în pilda văduvei care venea iar și iar la judecătorul nedrept.", "answer": "STĂRUINȚA"},
+    {"id": "vc-015", "difficulty": "medium", "prompt": "Ce se face cu gura, după ce inima a crezut.", "answer": "MĂRTURISIREA"},
+    {"id": "vc-016", "difficulty": "medium", "prompt": "Dragostea care se dă pe sine, ca văduva cu cei doi bănuți.", "answer": "JERTFELNICIA"},
+    {"id": "vc-017", "difficulty": "medium", "prompt": "Virtutea prin care unii au găzduit îngeri fără să știe.", "answer": "OSPITALITATEA"},
+    {"id": "vc-018", "difficulty": "medium", "prompt": "Însușirea lui Iov, pe care nici pierderea a tot ce avea nu i-a clintit-o.", "answer": "INTEGRITATEA"},
+    {"id": "vc-019", "difficulty": "hard", "prompt": "Cuvântul vechi pentru îndelunga răbdare a lui Dumnezeu față de om.", "answer": "LONGANIMITATEA"},
+    {"id": "vc-020", "difficulty": "hard", "prompt": "Teama plină de cinstire față de cele sfinte.", "answer": "CUCERNICIA"},
+    {"id": "vc-021", "difficulty": "hard", "prompt": "Lucrarea prin care doi care erau vrăjmași ajung iarăși de aceeași parte.", "answer": "ÎMPĂCAREA"},
+    {"id": "vc-022", "difficulty": "hard", "prompt": "Ținta spre care Pavel spunea că aleargă, deși nu ajunsese încă la ea.", "answer": "DESĂVÂRȘIREA"},
+    {"id": "vc-023", "difficulty": "hard", "prompt": "Purtarea de grijă prin care Dumnezeu cârmuiește lumea zi de zi.", "answer": "PROVIDENȚA"},
+    {"id": "vc-024", "difficulty": "hard", "prompt": "Starea la care cheamă îndemnul: fiți sfinți, căci Eu sunt sfânt.", "answer": "SFINȚENIA"}
+  ]
+}

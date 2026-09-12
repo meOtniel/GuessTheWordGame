@@ -1,0 +1,32 @@
+{
+  "id": "personaje-biblice",
+  "name": "Personaje biblice",
+  "theme": "christian",
+  "icon": "📖",
+  "questions": [
+    {"id": "pb-001", "difficulty": "easy", "prompt": "Omul cu cea mai lungă viață din Scriptură, 969 de ani.", "answer": "MATUSALEM"},
+    {"id": "pb-002", "difficulty": "easy", "prompt": "Femeia din care Isus a scos șapte demoni și care L-a văzut cea dintâi după înviere.", "answer": "MAGDALENA"},
+    {"id": "pb-003", "difficulty": "easy", "prompt": "Orbul din Ierihon care striga după Isus și nu voia să tacă.", "answer": "VARTIMEU"},
+    {"id": "pb-004", "difficulty": "easy", "prompt": "Verișoara Mariei, mama înaintemergătorului.", "answer": "ELISABETA"},
+    {"id": "pb-005", "difficulty": "easy", "prompt": "Apostolul numit și Natanael, despre care Isus a spus că e un israelit fără vicleșug.", "answer": "BARTOLOMEU"},
+    {"id": "pb-006", "difficulty": "easy", "prompt": "Porecla lui Ioan, glasul care striga în pustie să se pregătească o cale.", "answer": "BOTEZĂTORUL"},
+    {"id": "pb-007", "difficulty": "easy", "prompt": "Trecătorul silit de soldați să ducă crucea lui Isus pe drumul spre Golgota.", "answer": "SIMON DIN CIRENE"},
+    {"id": "pb-008", "difficulty": "easy", "prompt": "Femeia de la fântâna lui Iacov căreia Isus i-a cerut apă.", "answer": "SAMARITEANCA"},
+    {"id": "pb-009", "difficulty": "easy", "prompt": "Împăratul care a aruncat trei tineri în cuptorul încălzit de șapte ori mai tare.", "answer": "NABUCODONOSOR"},
+    {"id": "pb-010", "difficulty": "medium", "prompt": "Regele Salemului, preot al Dumnezeului Celui Preaînalt, care i-a ieșit înainte lui Avraam cu pâine și vin.", "answer": "MELCHISEDEC"},
+    {"id": "pb-011", "difficulty": "medium", "prompt": "Unchiul Esterei, cel care a refuzat să se plece înaintea lui Haman.", "answer": "MARDOHEU"},
+    {"id": "pb-012", "difficulty": "medium", "prompt": "Cel care a pus temelia celui de-al doilea Templu, după întoarcerea din robie.", "answer": "ZOROBABEL"},
+    {"id": "pb-013", "difficulty": "medium", "prompt": "Sutașul din Cezareea, cel dintâi dintre neamuri botezat de Petru.", "answer": "CORNELIU"},
+    {"id": "pb-014", "difficulty": "medium", "prompt": "Învățătorul de lege la picioarele căruia a fost crescut Saul din Tars.", "answer": "GAMALIEL"},
+    {"id": "pb-015", "difficulty": "medium", "prompt": "Soția lui Acuila, care i-a lămurit lui Apolo calea Domnului mai cu de-amănuntul.", "answer": "PRISCILA"},
+    {"id": "pb-016", "difficulty": "medium", "prompt": "Soția lui Ahab, regina care i-a prigonit pe profeții Domnului.", "answer": "IEZABELA"},
+    {"id": "pb-017", "difficulty": "medium", "prompt": "Cel mai mic dintre cei doisprezece fii ai lui Iacov, născut pe drumul spre Efrata.", "answer": "BENIAMIN"},
+    {"id": "pb-018", "difficulty": "medium", "prompt": "Porecla ucenicului care L-a vândut pe Isus cu treizeci de arginți.", "answer": "ISCARIOTEANUL"},
+    {"id": "pb-019", "difficulty": "hard", "prompt": "Fiul olog al lui Ionatan, chemat de David să mănânce la masa împăratului.", "answer": "MEFIBOȘET"},
+    {"id": "pb-020", "difficulty": "hard", "prompt": "Fiul lui Ghedeon care s-a făcut împărat la Sihem după ce și-a ucis frații.", "answer": "ABIMELEC"},
+    {"id": "pb-021", "difficulty": "hard", "prompt": "Creștinul care l-a căutat cu stăruință pe Pavel la Roma și nu s-a rușinat de lanțul lui.", "answer": "ONISIFOR"},
+    {"id": "pb-022", "difficulty": "hard", "prompt": "Trimisul filipenilor care s-a îmbolnăvit până aproape de moarte în slujba lui Pavel.", "answer": "EPAFRODIT"},
+    {"id": "pb-023", "difficulty": "hard", "prompt": "Sfetnicul lui David ale cărui sfaturi treceau drept cuvânt de la Dumnezeu, până a trecut de partea răzvrătiților.", "answer": "AHITOFEL"},
+    {"id": "pb-024", "difficulty": "hard", "prompt": "Împăratul asirian a cărui oaste a fost nimicită într-o noapte sub zidurile Ierusalimului.", "answer": "SENAHERIB"}
+  ]
+}

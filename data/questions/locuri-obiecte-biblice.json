@@ -1,0 +1,32 @@
+{
+  "id": "locuri-obiecte-biblice",
+  "name": "Locuri și obiecte biblice",
+  "theme": "christian",
+  "icon": "🏺",
+  "questions": [
+    {"id": "lo-001", "difficulty": "easy", "prompt": "Cetatea luată de David de la iebusiți și făcută scaun de domnie.", "answer": "IERUSALIM"},
+    {"id": "lo-002", "difficulty": "easy", "prompt": "Cortul întâlnirii, purtat de israeliți prin pustie vreme de patruzeci de ani.", "answer": "TABERNACOL"},
+    {"id": "lo-003", "difficulty": "easy", "prompt": "Grădina de pe Muntele Măslinilor unde Isus S-a rugat în noaptea prinderii.", "answer": "GHETSIMANI"},
+    {"id": "lo-004", "difficulty": "easy", "prompt": "Orașul din Galileea despre care Natanael s-a întrebat dacă poate ieși ceva bun de acolo.", "answer": "NAZARETUL"},
+    {"id": "lo-005", "difficulty": "easy", "prompt": "Lada de lemn de salcâm poleită cu aur, în care erau tablele Legii.", "answer": "CHIVOTUL"},
+    {"id": "lo-006", "difficulty": "easy", "prompt": "Obiectul de aur curat cu șapte brațe, care lumina Locul Sfânt.", "answer": "SFEȘNICUL"},
+    {"id": "lo-007", "difficulty": "easy", "prompt": "Râul în care Naaman s-a scăldat de șapte ori și s-a vindecat de lepră.", "answer": "IORDANUL"},
+    {"id": "lo-008", "difficulty": "easy", "prompt": "Numele latinesc al dealului răstignirii, pomenit și ca Locul Căpățânii.", "answer": "CALVARUL"},
+    {"id": "lo-009", "difficulty": "easy", "prompt": "Cetatea în care iudeii au fost duși în robie șaptezeci de ani.", "answer": "BABILONUL"},
+    {"id": "lo-010", "difficulty": "medium", "prompt": "Orașul de pe malul Mării Galileii pe care Isus Și l-a ales drept casă.", "answer": "CAPERNAUM"},
+    {"id": "lo-011", "difficulty": "medium", "prompt": "Locul ultimei bătălii, numit o singură dată în Apocalipsa.", "answer": "ARMAGHEDON"},
+    {"id": "lo-012", "difficulty": "medium", "prompt": "Cetatea macedoneană căreia Pavel i-a scris două epistole despre venirea Domnului.", "answer": "TESALONIC"},
+    {"id": "lo-013", "difficulty": "medium", "prompt": "Cetatea în care ucenicii au fost numiți pentru întâia oară creștini.", "answer": "ANTIOHIA"},
+    {"id": "lo-014", "difficulty": "medium", "prompt": "Materialul din piele de animal pe care se scriau sulurile, mai trainic decât papirusul.", "answer": "PERGAMENT"},
+    {"id": "lo-015", "difficulty": "medium", "prompt": "Biserica mustrată în Apocalipsa pentru că nu era nici rece, nici în clocot.", "answer": "LAODICEEA"},
+    {"id": "lo-016", "difficulty": "medium", "prompt": "Scăldătoarea în care orbul din naștere s-a spălat pe ochi și a văzut.", "answer": "SILOAMUL"},
+    {"id": "lo-017", "difficulty": "medium", "prompt": "Portul roman unde Pavel a stat doi ani închis, înaintea lui Felix și a lui Festus.", "answer": "CEZAREEA"},
+    {"id": "lo-018", "difficulty": "medium", "prompt": "Pieptarul marelui preot, împodobit cu douăsprezece pietre scumpe.", "answer": "PECTORALUL"},
+    {"id": "lo-019", "difficulty": "hard", "prompt": "Muntele pe care samaritenii se închinau, pomenit de femeia de la fântână.", "answer": "GHERIZIM"},
+    {"id": "lo-020", "difficulty": "hard", "prompt": "Fântâna jurământului, la marginea de miazăzi a Țării Făgăduinței.", "answer": "BEERȘEBA"},
+    {"id": "lo-021", "difficulty": "hard", "prompt": "Muntele pe care Ilie i-a înfruntat pe cei patru sute cincizeci de profeți ai lui Baal.", "answer": "CARMELUL"},
+    {"id": "lo-022", "difficulty": "hard", "prompt": "Ținutul din care un om i s-a arătat lui Pavel în vedenie, chemându-l să treacă marea.", "answer": "MACEDONIA"},
+    {"id": "lo-023", "difficulty": "hard", "prompt": "Consiliul celor șaptezeci de bătrâni care L-a judecat pe Isus noaptea.", "answer": "SANHEDRINUL"},
+    {"id": "lo-024", "difficulty": "hard", "prompt": "Colina ateniană de unde Pavel le-a vorbit grecilor despre Dumnezeul necunoscut.", "answer": "AREOPAGUL"}
+  ]
+}

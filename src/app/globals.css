@@ -1,0 +1,78 @@
+@import 'tailwindcss';
+
+/*
+ * Warm, celebratory palette: cream ground, deep plum ink, gold accents.
+ * No dark mode — a wedding hall is lit, and the projector needs one
+ * predictable look.
+ */
+@theme {
+  --color-cream: #fbf7f0;
+  --color-cream-deep: #f3ebdd;
+  --color-ink: #2a1b2d;
+  --color-ink-soft: #6b5566;
+  --color-plum: #4a2545;
+  --color-plum-light: #6d3a64;
+  --color-gold: #c9a227;
+  --color-gold-light: #e8cf7a;
+  --color-rose: #c86b85;
+
+  --color-easy: #3f7d5c;
+  --color-medium: #c08327;
+  --color-hard: #b4453f;
+
+  --font-display: 'Georgia', 'Cambria', 'Times New Roman', serif;
+  --font-sans: 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+}
+
+html,
+body {
+  background: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* The game is tap-driven; accidental text selection while tapping tiles
+   quickly looks broken, so it is suppressed everywhere but prompts. */
+body {
+  user-select: none;
+}
+.selectable {
+  user-select: text;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-10px); }
+  40% { transform: translateX(9px); }
+  60% { transform: translateX(-6px); }
+  80% { transform: translateX(4px); }
+}
+.animate-shake {
+  animation: shake 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+}
+
+@keyframes pop {
+  0% { transform: scale(0.8); opacity: 0; }
+  60% { transform: scale(1.06); }
+  100% { transform: scale(1); opacity: 1; }
+}
+.animate-pop {
+  animation: pop 0.28s ease-out;
+}
+
+@keyframes rise {
+  from { transform: translateY(14px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.animate-rise {
+  animation: rise 0.4s ease-out both;
+}
+
+@keyframes pulse-urgent {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}
+.animate-urgent {
+  animation: pulse-urgent 0.9s ease-in-out infinite;
+}

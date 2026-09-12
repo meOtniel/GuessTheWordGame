@@ -1,0 +1,11 @@
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+next-env.d.ts
+
+# Runtime game state — regenerated at play time, never committed
+data/session.json
+data/last-session.json
+
+.DS_Store

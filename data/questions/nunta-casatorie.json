@@ -1,0 +1,32 @@
+{
+  "id": "nunta-casatorie",
+  "name": "Nuntă și căsătorie",
+  "theme": "christian",
+  "icon": "💍",
+  "questions": [
+    {"id": "nc-001", "difficulty": "easy", "prompt": "Cuvântul biblic pentru înțelegerea pe care o pecetluiesc mirii — nu o simplă învoială, ci ceva ce nu se rupe.", "answer": "LEGĂMÂNTUL"},
+    {"id": "nc-002", "difficulty": "easy", "prompt": "Ce se așază pe capetele mirilor în slujba de cununie.", "answer": "CUNUNIILE"},
+    {"id": "nc-003", "difficulty": "easy", "prompt": "Cum i se spune mirelui în răstimpul dintre cerere și cununie.", "answer": "LOGODNICUL"},
+    {"id": "nc-004", "difficulty": "easy", "prompt": "Ce aruncă mireasa peste umăr spre fetele nemăritate.", "answer": "BUCHETUL"},
+    {"id": "nc-005", "difficulty": "easy", "prompt": "Cercul fără capăt purtat pe inelar.", "answer": "VERIGHETA"},
+    {"id": "nc-006", "difficulty": "easy", "prompt": "Ce rostesc mirii unul în fața celuilalt: la bine și la greu, până când moartea îi va despărți.", "answer": "JURĂMÂNTUL"},
+    {"id": "nc-007", "difficulty": "easy", "prompt": "Cea dintâi rânduială așezată de Dumnezeu, încă din grădina Edenului.", "answer": "CĂSĂTORIA"},
+    {"id": "nc-008", "difficulty": "easy", "prompt": "Locul nunții unde apa s-a făcut vin, cea dintâi minune a lui Isus.", "answer": "CANA GALILEII"},
+    {"id": "nc-009", "difficulty": "easy", "prompt": "Momentul din seara nunții când invitații joacă în cerc în jurul miresei.", "answer": "HORA MIRESEI"},
+    {"id": "nc-010", "difficulty": "medium", "prompt": "Călătoria de după nuntă, numită după o băutură dulce.", "answer": "LUNA DE MIERE"},
+    {"id": "nc-011", "difficulty": "medium", "prompt": "Cuvântul mai vechi pentru logodnă, făgăduința dinaintea nunții.", "answer": "ÎNCREDINȚAREA"},
+    {"id": "nc-012", "difficulty": "medium", "prompt": "Ce se rostește peste miri la sfârșitul cununiei, cu mâinile așezate pe capetele lor.", "answer": "BINECUVÂNTAREA"},
+    {"id": "nc-013", "difficulty": "medium", "prompt": "Cel care în satul de altădată pețea mireasa și purta vorbele între cele două familii.", "answer": "STAROSTELE"},
+    {"id": "nc-014", "difficulty": "medium", "prompt": "Făgăduința care ține căsnicia în picioare atunci când simțirile obosesc.", "answer": "CREDINCIOȘIA"},
+    {"id": "nc-015", "difficulty": "medium", "prompt": "Ce se sărbătorește în fiecare an la data cununiei.", "answer": "ANIVERSAREA"},
+    {"id": "nc-016", "difficulty": "medium", "prompt": "Cum se numesc cei cincizeci de ani de căsnicie împliniți împreună.", "answer": "NUNTA DE AUR"},
+    {"id": "nc-017", "difficulty": "medium", "prompt": "Cuvântul folosit în Geneza pentru femeia dată bărbatului, când s-a spus că nu e bine să fie singur.", "answer": "AJUTORUL"},
+    {"id": "nc-018", "difficulty": "medium", "prompt": "Ruda care avea dreptul și datoria să ia de soție văduva din familie, cum a făcut Boaz cu Rut.", "answer": "RĂSCUMPĂRĂTORUL"},
+    {"id": "nc-019", "difficulty": "hard", "prompt": "Rânduiala unei singure soții și a unui singur soț, așezată în Geneza prin cuvintele „un singur trup”.", "answer": "MONOGAMIA"},
+    {"id": "nc-020", "difficulty": "hard", "prompt": "Acordul liber al amândurora, fără de care cununia nu are nicio putere.", "answer": "CONSIMȚĂMÂNTUL"},
+    {"id": "nc-021", "difficulty": "hard", "prompt": "Ce au luat cu ele cele zece fecioare care îl așteptau pe mire.", "answer": "CANDELELE"},
+    {"id": "nc-022", "difficulty": "hard", "prompt": "Numele vechi al nașului de cununie în satul românesc.", "answer": "NUNUL MARE"},
+    {"id": "nc-023", "difficulty": "hard", "prompt": "Odaia pregătită pentru miri, din care Psalmul 19 spune că iese mirele ca un voinic.", "answer": "CĂMARA DE NUNTĂ"},
+    {"id": "nc-024", "difficulty": "hard", "prompt": "Paharul pe care mirele evreu i-l întindea miresei ca semn al înțelegerii dintre ei.", "answer": "CUPA LEGĂMÂNTULUI"}
+  ]
+}

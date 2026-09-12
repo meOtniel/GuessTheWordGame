@@ -1,0 +1,32 @@
+{
+  "id": "mancare-gastronomie",
+  "name": "Mâncare și gastronomie",
+  "theme": "general",
+  "icon": "🍲",
+  "questions": [
+    {"id": "man-001", "difficulty": "easy", "prompt": "Foile de varză sau de viță umplute cu carne și orez, nelipsite de la masa de sărbătoare.", "answer": "SARMALELE"},
+    {"id": "man-002", "difficulty": "easy", "prompt": "Preparatul din făină de porumb fiert, pâinea de fiecare zi a țăranului român.", "answer": "MĂMĂLIGA"},
+    {"id": "man-003", "difficulty": "easy", "prompt": "Aluatul dospit cu nucă sau mac, copt de Paște și de Crăciun.", "answer": "COZONACUL"},
+    {"id": "man-004", "difficulty": "easy", "prompt": "Ciorba dreasă cu smântână, usturoi și ardei iute, cerută mai ales a doua zi după petrecere.", "answer": "CIORBA DE BURTĂ"},
+    {"id": "man-005", "difficulty": "easy", "prompt": "Sosul de usturoi pisat cu apă sau zeamă, pus alături de fripturi și de pește.", "answer": "MUJDEIUL"},
+    {"id": "man-006", "difficulty": "easy", "prompt": "Felia de carne bătută subțire, trecută prin făină, ou și pesmet, apoi prăjită.", "answer": "ȘNIȚELUL"},
+    {"id": "man-007", "difficulty": "easy", "prompt": "Legumele puse la borcan în oțet sau saramură, pentru iarnă.", "answer": "MURĂTURILE"},
+    {"id": "man-008", "difficulty": "easy", "prompt": "Desertul cu brânză de vaci, smântână și dulceață, cu o bilă așezată deasupra.", "answer": "PAPANAȘII"},
+    {"id": "man-009", "difficulty": "easy", "prompt": "Dulcele obținut din boabe de cacao, băut de azteci sărat și cu ardei iute.", "answer": "CIOCOLATA"},
+    {"id": "man-010", "difficulty": "medium", "prompt": "Desertul italian cu mascarpone, cafea și pișcoturi, al cărui nume înseamnă „ridică-mă”.", "answer": "TIRAMISU"},
+    {"id": "man-011", "difficulty": "medium", "prompt": "Brânza italiană tare, maturată ani întregi, rasă peste paste.", "answer": "PARMEZANUL"},
+    {"id": "man-012", "difficulty": "medium", "prompt": "Pasta mexicană de avocado, cu lămâie, ceapă și coriandru.", "answer": "GUACAMOLE"},
+    {"id": "man-013", "difficulty": "medium", "prompt": "Cornul franțuzesc din foietaj cu unt, de obârșie vieneză.", "answer": "CROISSANTUL"},
+    {"id": "man-014", "difficulty": "medium", "prompt": "Tocana franțuzească de vită gătită îndelung în vin roșu de Burgundia.", "answer": "BOURGUIGNON"},
+    {"id": "man-015", "difficulty": "medium", "prompt": "Ținerea cărnii în mirodenii și lichid acru, înainte de a fi gătită.", "answer": "MARINAREA"},
+    {"id": "man-016", "difficulty": "medium", "prompt": "Zahărul topit până se rumenește, temelia cremei de zahăr ars.", "answer": "CARAMELUL"},
+    {"id": "man-017", "difficulty": "medium", "prompt": "Lucrarea drojdiei care face aluatul să crească și pâinea să fie pufoasă.", "answer": "FERMENTAȚIA"},
+    {"id": "man-018", "difficulty": "medium", "prompt": "Mirodenia luată din coaja unui arbore, presărată peste plăcinta cu mere.", "answer": "SCORȚIȘOARA"},
+    {"id": "man-019", "difficulty": "hard", "prompt": "Supa de pește din Marsilia, dreasă cu șofran și cu sos rouille.", "answer": "BOUILLABAISSE"},
+    {"id": "man-020", "difficulty": "hard", "prompt": "Încălzirea scurtă care omoară microbii din lapte, numită după un chimist francez.", "answer": "PASTEURIZAREA"},
+    {"id": "man-021", "difficulty": "hard", "prompt": "Arta și știința mâncării bune, cuvânt venit din grecește.", "answer": "GASTRONOMIA"},
+    {"id": "man-022", "difficulty": "hard", "prompt": "Tocana provensală de vinete, dovlecei, ardei și roșii.", "answer": "RATATOUILLE"},
+    {"id": "man-023", "difficulty": "hard", "prompt": "Unirea uleiului cu apa într-un sos legat, taina maionezei.", "answer": "EMULSIONAREA"},
+    {"id": "man-024", "difficulty": "hard", "prompt": "Brânza lombardă cu vinișoare de mucegai albastru.", "answer": "GORGONZOLA"}
+  ]
+}
