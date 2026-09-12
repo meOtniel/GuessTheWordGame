@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
-import { Button, Card, formatDuration } from '@/components/ui'
+import { Button, Card, formatDuration, plural } from '@/components/ui'
 import { DIFFICULTIES, type ByDifficulty, type Difficulty, type PublicState, type Theme } from '@/lib/types'
 
 interface CategorySummary {
@@ -162,7 +162,7 @@ export function AdminSetup({ onCreated }: { onCreated: (state: PublicState) => v
               Șterge ultimul
             </Button>
           )}
-          <span className="text-ink-soft text-sm">{filledNames.length} completați</span>
+          <span className="text-ink-soft text-sm">{plural(filledNames.length, 'completat', 'completați')}</span>
           {duplicateNames && <span className="text-hard text-sm font-semibold">Numele trebuie să fie diferite.</span>}
         </div>
       </Card>
@@ -194,7 +194,7 @@ export function AdminSetup({ onCreated }: { onCreated: (state: PublicState) => v
           ))}
         </div>
         <p className="text-ink-soft mt-3 text-sm">
-          {questionsPerPlayer} întrebări per jucător · din care{' '}
+          {plural(questionsPerPlayer, 'întrebare', 'întrebări')} per jucător · din care{' '}
           <NumberInput value={themedPerPlayer} min={0} max={questionsPerPlayer} onChange={setThemedPerPlayer} inline />{' '}
           tematice (biblice / nuntă)
         </p>
@@ -231,10 +231,12 @@ export function AdminSetup({ onCreated }: { onCreated: (state: PublicState) => v
         <Card className={feasibility.ok ? 'border-easy/40 bg-easy/5' : 'border-hard/40 bg-hard/5'}>
           <div className="flex flex-wrap items-baseline justify-between gap-4">
             <p className="font-semibold">
-              {filledNames.length} jucători × {questionsPerPlayer} întrebări
+              {plural(filledNames.length, 'jucător', 'jucători')} ×{' '}
+              {plural(questionsPerPlayer, 'întrebare', 'întrebări')}
             </p>
             <p className="text-ink-soft text-sm">
-              {feasibility.questionsUsed} din {feasibility.questionsAvailable} întrebări folosite
+              Folosite {feasibility.questionsUsed} din{' '}
+              {plural(feasibility.questionsAvailable, 'întrebare', 'întrebări')}
             </p>
           </div>
 

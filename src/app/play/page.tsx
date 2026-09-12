@@ -6,7 +6,7 @@ import { CountdownRing } from '@/components/CountdownRing'
 import { useConfetti } from '@/components/Confetti'
 import { Leaderboard, Podium } from '@/components/Leaderboard'
 import { TileBoard } from '@/components/TileBoard'
-import { Button, DifficultyBadge } from '@/components/ui'
+import { Button, DifficultyBadge, plural } from '@/components/ui'
 import { useCountdown, useSession } from '@/lib/useSession'
 
 export default function PlayPage() {
@@ -71,7 +71,7 @@ export default function PlayPage() {
         <p className="text-ink-soft text-2xl">Urmează</p>
         <h1 className="font-display text-plum my-6 text-6xl font-bold sm:text-8xl">{next?.name}</h1>
         <p className="text-ink-soft mb-10 text-lg">
-          {next?.questionCount} întrebări · dă tableta jucătorului
+          {plural(next?.questionCount ?? 0, 'întrebare', 'întrebări')} · dă tableta jucătorului
         </p>
         <Button size="xl" onClick={() => void actions.startTurn()}>
           Începe
@@ -104,7 +104,7 @@ export default function PlayPage() {
           <div className="bg-cream/95 fixed inset-0 z-10 flex flex-col items-center justify-center gap-8 px-6 text-center">
             <p className="font-display text-plum text-5xl font-bold">Joc în pauză</p>
             <p className="text-ink-soft text-xl">
-              Cronometrul este oprit. Dă dispozitivul lui {state.currentPlayer?.name} și continuă.
+              Cronometrul este oprit. Urmează {state.currentPlayer?.name} — dă-i dispozitivul și continuă.
             </p>
             <Button size="xl" onClick={() => void actions.resume()}>
               Continuă
@@ -134,7 +134,7 @@ export default function PlayPage() {
           >
             Literă ajutătoare
             <span className="text-ink-soft ml-2 text-sm font-normal">
-              −{question.hintCost}p · {hintsLeft} rămase
+              −{question.hintCost}p · {plural(hintsLeft, 'rămasă', 'rămase')}
             </span>
           </Button>
           <div className="text-right">
@@ -173,7 +173,9 @@ export default function PlayPage() {
             <li key={i} className="flex items-center gap-3 rounded-xl border border-ink/10 bg-white/70 px-4 py-3">
               <span className={`text-xl ${row.correct ? 'text-easy' : 'text-hard'}`}>{row.correct ? '✓' : '✗'}</span>
               <span className="font-display flex-1 truncate font-semibold">{row.answer}</span>
-              {row.hintsUsed > 0 && <span className="text-ink-soft text-xs">{row.hintsUsed} ajutor</span>}
+              {row.hintsUsed > 0 && (
+                <span className="text-ink-soft text-xs">{plural(row.hintsUsed, 'ajutor', 'ajutoare')}</span>
+              )}
               <span className="font-display text-plum font-bold tabular-nums">{row.points}</span>
             </li>
           ))}
@@ -188,7 +190,7 @@ export default function PlayPage() {
 
   if (state.phase === 'finished') {
     return (
-      <main className="mx-auto flex min-h-screen w-full max-w-3xl flex-col justify-center px-4 py-10">
+      <main className="mx-auto flex min-h-screen w-full max-w-5xl flex-col justify-center px-4 py-10">
         <h1 className="font-display mb-10 text-center text-4xl font-bold sm:text-5xl">Clasament final</h1>
         <Podium rows={state.leaderboard} />
         <div className="mt-10 flex justify-center">

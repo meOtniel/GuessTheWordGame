@@ -2,6 +2,7 @@ import { readdir, readFile } from 'node:fs/promises'
 import path from 'node:path'
 import { z } from 'zod'
 import { answerLetters } from '@/lib/normalize'
+import { plural } from '@/lib/plural'
 import { DIFFICULTIES, type Category, type Difficulty, type Question, type Theme } from '@/lib/types'
 
 export const QUESTIONS_DIR = path.join(process.cwd(), 'data', 'questions')
@@ -73,7 +74,10 @@ export async function loadCategories(force = false): Promise<LoadResult> {
       }
       const letters = answerLetters(q.answer).length
       if (letters < 8 || letters > 16) {
-        issues.push({ file, message: `"${q.id}": răspunsul "${q.answer}" are ${letters} litere (8-16 permise)` })
+        issues.push({
+          file,
+          message: `"${q.id}": răspunsul "${q.answer}" are ${plural(letters, 'literă', 'litere')} (8-16 permise)`,
+        })
         continue
       }
       seenQuestionIds.add(q.id)

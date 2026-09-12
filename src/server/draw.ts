@@ -1,3 +1,4 @@
+import { plural } from '@/lib/plural'
 import { makeRng, shuffle, type Rng } from '@/lib/rng'
 import { DIFFICULTIES, type ByDifficulty, type Category, type Difficulty, type Question, type Theme } from '@/lib/types'
 
@@ -60,8 +61,17 @@ export interface Feasibility {
   supply: Demand
 }
 
+// Both numbers are needed: these labels qualify "întrebare"/"categorie", which
+// the counted phrases around them may render in either form.
 const THEME_LABEL: Record<Theme, string> = { christian: 'tematice', general: 'generale' }
+const THEME_LABEL_ONE: Record<Theme, string> = { christian: 'tematică', general: 'generală' }
 const DIFF_LABEL: Record<Difficulty, string> = { easy: 'ușoare', medium: 'medii', hard: 'grele' }
+const DIFF_LABEL_ONE: Record<Difficulty, string> = { easy: 'ușoară', medium: 'medie', hard: 'grea' }
+
+const themeWord = (theme: Theme, count: number) =>
+  count === 1 ? THEME_LABEL_ONE[theme] : THEME_LABEL[theme]
+const diffWord = (difficulty: Difficulty, count: number) =>
+  count === 1 ? DIFF_LABEL_ONE[difficulty] : DIFF_LABEL[difficulty]
 
 /**
  * Answered before a single question is dealt, so a shortfall shows up on the
@@ -88,7 +98,10 @@ export function checkFeasibility(
       const need = demand[theme][d]
       const have = supply[theme][d]
       if (need > have) {
-        errors.push('Nevoie de ' + need + ' întrebări ' + DIFF_LABEL[d] + ' ' + THEME_LABEL[theme] + ', disponibile ' + have + '.')
+        errors.push(
+          `Nevoie de ${plural(need, 'întrebare', 'întrebări')} ${diffWord(d, need)} ${themeWord(theme, need)}` +
+            `, disponibile ${have}.`,
+        )
       }
     }
   }
@@ -100,8 +113,9 @@ export function checkFeasibility(
     const available = categories.filter((c) => c.theme === theme).length
     if (slotsPerPlayer > available && available > 0) {
       warnings.push(
-        'Doar ' + available + ' categorii ' + THEME_LABEL[theme] + ' pentru ' + slotsPerPlayer +
-          ' întrebări ' + THEME_LABEL[theme] + '/jucător — o categorie se va repeta.',
+        `Doar ${plural(available, 'categorie', 'categorii')} ${themeWord(theme, available)} pentru ` +
+          `${plural(slotsPerPlayer, 'întrebare', 'întrebări')} ${themeWord(theme, slotsPerPlayer)}/jucător` +
+          ' — o categorie se va repeta.',
       )
     }
   }
@@ -191,8 +205,8 @@ export function drawSession(
         candidates = eligible(other, false)
         if (candidates.length > 0) {
           warnings.push(
-            'Rezervă epuizată pentru o întrebare ' + DIFF_LABEL[slot.difficulty] + ' ' + THEME_LABEL[slot.theme] +
-              ' — s-a folosit o categorie ' + THEME_LABEL[other] + '.',
+            `Rezervă epuizată pentru o întrebare ${DIFF_LABEL_ONE[slot.difficulty]} ${THEME_LABEL_ONE[slot.theme]}` +
+              ` — s-a folosit o categorie ${THEME_LABEL_ONE[other]}.`,
           )
         }
       }

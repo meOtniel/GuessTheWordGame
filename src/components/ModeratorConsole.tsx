@@ -1,7 +1,7 @@
 'use client'
 
 import { CountdownRing } from '@/components/CountdownRing'
-import { Button, DifficultyBadge } from '@/components/ui'
+import { Button, DifficultyBadge, plural } from '@/components/ui'
 import { useCountdown } from '@/lib/useSession'
 import type { PublicState } from '@/lib/types'
 import type { useSession } from '@/lib/useSession'
@@ -81,7 +81,7 @@ export function ModeratorConsole({ state, actions }: { state: PublicState; actio
         >
           Literă ajutătoare
           <span className="text-ink-soft ml-2 text-xs font-normal">
-            −{question.hintCost}p · {hintsLeft} rămase
+            −{question.hintCost}p · {plural(hintsLeft, 'rămasă', 'rămase')}
           </span>
         </Button>
         <Button size="lg" variant="secondary" disabled={state.paused} onClick={() => void actions.judge(false)}>
@@ -92,7 +92,8 @@ export function ModeratorConsole({ state, actions }: { state: PublicState; actio
       <p className="text-ink-soft text-sm">
         Apasă <strong>Corect</strong> imediat ce invitatul spune cuvântul — punctajul se calculează în acel
         moment, deci nu mai aștepți să termine de atins literele.
-        {question.hintsUsed > 0 && ` ${question.hintsUsed} litere ajutătoare folosite.`}
+        {question.hintsUsed > 0 &&
+          ` ${plural(question.hintsUsed, 'literă ajutătoare folosită', 'litere ajutătoare folosite')}.`}
       </p>
     </section>
   )

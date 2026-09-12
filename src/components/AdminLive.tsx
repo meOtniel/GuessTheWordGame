@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { Leaderboard } from '@/components/Leaderboard'
 import { ModeratorConsole } from '@/components/ModeratorConsole'
 import { TabletConnect } from '@/components/TabletConnect'
-import { Button, Card, formatClock, formatDuration } from '@/components/ui'
+import { Button, Card, DIFFICULTY_LABEL, formatClock, formatDuration } from '@/components/ui'
 import { DIFFICULTIES, type ByDifficulty, type PublicState } from '@/lib/types'
 import type { useSession } from '@/lib/useSession'
 
@@ -161,7 +161,7 @@ export function AdminLive({
         <div className="flex flex-wrap items-end gap-4">
           {DIFFICULTIES.map((d) => (
             <label key={d} className="flex flex-col gap-1">
-              <span className="text-ink-soft text-xs font-semibold uppercase">{d}</span>
+              <span className="text-ink-soft text-xs font-semibold uppercase">{DIFFICULTY_LABEL[d]}</span>
               <input
                 type="number"
                 min={5}

@@ -66,15 +66,7 @@ export function formatDuration(seconds: number): string {
   return `${m} min`
 }
 
-/**
- * Romanian numeral agreement: 1 takes the singular, 2-19 the plural, and from
- * 20 up the plural needs "de" in front of it ("20 de ajutoare").
- */
-export function plural(count: number, one: string, few: string): string {
-  if (count === 1) return `${count} ${one}`
-  if (count < 20) return `${count} ${few}`
-  return `${count} de ${few}`
-}
+export { plural } from '@/lib/plural'
 
 export function formatClock(epochMs: number | null): string {
   if (epochMs === null) return '--:--'
