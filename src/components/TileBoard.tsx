@@ -1,6 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { slotWords } from '@/lib/tiles'
 import type { Slot, Tile } from '@/lib/types'
 
 interface Props {
@@ -28,6 +29,7 @@ export function TileBoard({ tiles, slots, revealedSlots, disabled = false, onSub
   const [placement, setPlacement] = useState<Record<number, string>>({})
   const [shaking, setShaking] = useState(false)
   const letterSlots = useMemo(() => slots.filter((s) => s.kind === 'letter'), [slots])
+  const words = useMemo(() => slotWords(slots), [slots])
   const size = tileSize(letterSlots.length)
 
   // A new question resets the board entirely.
@@ -111,39 +113,54 @@ export function TileBoard({ tiles, slots, revealedSlots, disabled = false, onSub
 
   return (
     <div className="flex w-full flex-col items-center gap-8">
-      {/* Answer slots */}
+      {/* Answer slots, one group per word: a word never breaks across lines, so
+          the player can read off how many words there are and how long each is. */}
       <div
-        className={`flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 ${shaking ? 'animate-shake' : ''}`}
-        style={{ ['--tile' as string]: size }}
+        className={`flex flex-wrap items-center justify-center ${shaking ? 'animate-shake' : ''}`}
+        style={{
+          ['--tile' as string]: size,
+          columnGap: 'calc(var(--tile) * 0.7)',
+          rowGap: 'calc(var(--tile) * 0.35)',
+        }}
       >
-        {slots.map((slot) => {
-          if (slot.kind === 'gap') {
-            return <div key={slot.index} style={{ width: 'calc(var(--tile) * 0.4)' }} aria-hidden />
-          }
-          const tileId = placement[slot.index]
-          const tile = tileId ? tiles.find((t) => t.id === tileId) : null
-          const locked = slot.index in revealedSlots
+        {words.map((word, wordIndex) => (
+          <div
+            key={word[0].index}
+            role={words.length > 1 ? 'group' : undefined}
+            aria-label={words.length > 1 ? `Cuvântul ${wordIndex + 1} din ${words.length}` : undefined}
+            className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2"
+          >
+            {word.map((slot) => {
+              const tileId = placement[slot.index]
+              const tile = tileId ? tiles.find((t) => t.id === tileId) : null
+              const locked = slot.index in revealedSlots
 
-          return (
-            <button
-              key={slot.index}
-              type="button"
-              onClick={() => removeTile(slot.index)}
-              disabled={disabled || !tile || locked}
-              aria-label={tile ? `Litera ${tile.char}` : 'Loc liber'}
-              className={`font-display flex items-center justify-center rounded-xl border-2 font-bold transition-all ${
-                locked
-                  ? 'border-gold bg-gold-light text-ink'
-                  : tile
-                    ? 'border-plum bg-plum text-cream cursor-pointer'
-                    : 'border-ink/20 border-dashed bg-white/50'
-              }`}
-              style={{ width: 'var(--tile)', height: 'calc(var(--tile) * 1.15)', fontSize: 'calc(var(--tile) * 0.52)' }}
-            >
-              {tile?.char ?? ''}
-            </button>
-          )
-        })}
+              return (
+                <button
+                  key={slot.index}
+                  type="button"
+                  onClick={() => removeTile(slot.index)}
+                  disabled={disabled || !tile || locked}
+                  aria-label={tile ? `Litera ${tile.char}` : 'Loc liber'}
+                  className={`font-display flex items-center justify-center rounded-xl border-2 font-bold transition-all ${
+                    locked
+                      ? 'border-gold bg-gold-light text-ink'
+                      : tile
+                        ? 'border-plum bg-plum text-cream cursor-pointer'
+                        : 'border-ink/20 border-dashed bg-white/50'
+                  }`}
+                  style={{
+                    width: 'var(--tile)',
+                    height: 'calc(var(--tile) * 1.15)',
+                    fontSize: 'calc(var(--tile) * 0.52)',
+                  }}
+                >
+                  {tile?.char ?? ''}
+                </button>
+              )
+            })}
+          </div>
+        ))}
       </div>
 
       {/* Scrambled pool */}

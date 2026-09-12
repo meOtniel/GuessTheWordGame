@@ -6,7 +6,8 @@ import { CountdownRing } from '@/components/CountdownRing'
 import { useConfetti } from '@/components/Confetti'
 import { Leaderboard, Podium } from '@/components/Leaderboard'
 import { TileBoard } from '@/components/TileBoard'
-import { Button, DifficultyBadge, plural } from '@/components/ui'
+import { Button, DifficultyBadge } from '@/components/ui'
+import { plural } from '@/lib/plural'
 import { useCountdown, useSession } from '@/lib/useSession'
 
 export default function PlayPage() {

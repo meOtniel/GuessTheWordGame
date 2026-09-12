@@ -1,7 +1,8 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
-import { Button, Card, formatDuration, plural } from '@/components/ui'
+import { Button, Card, formatDuration } from '@/components/ui'
+import { plural } from '@/lib/plural'
 import { DIFFICULTIES, type ByDifficulty, type Difficulty, type PublicState, type Theme } from '@/lib/types'
 
 interface CategorySummary {

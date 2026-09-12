@@ -4,8 +4,9 @@ import type { Slot, Tile } from './types'
 
 /**
  * Slots mirror the normalised answer: one 'letter' slot per letter, plus a
- * fixed 'gap' for each space in a multi-word answer. Gaps are rendered but
- * never interactive, so the player only ever fills letters.
+ * fixed 'gap' for each space in a multi-word answer. Gaps are never
+ * interactive — they only mark where one word ends and the next begins, so the
+ * player only ever fills letters.
  */
 export function buildSlots(answer: string): Slot[] {
   return normalizeRo(answer)
@@ -26,6 +27,25 @@ export function buildTiles(answer: string, seed: string): Tile[] {
 /** Letter slots only, in reading order. */
 export function letterSlots(slots: Slot[]): Slot[] {
   return slots.filter((s) => s.kind === 'letter')
+}
+
+/**
+ * The letter slots split into one group per word, so a board can keep each
+ * word together instead of letting a long answer wrap wherever it likes.
+ * "NUNTA DE AUR" gives the player three visible groups of 5, 2 and 3 — a small
+ * leg-up that the bare letter count never offered.
+ *
+ * Single-word answers come back as one group, which renders exactly as before.
+ */
+export function slotWords(slots: Slot[]): Slot[][] {
+  const words: Slot[][] = [[]]
+  for (const slot of slots) {
+    if (slot.kind === 'gap') words.push([])
+    else words[words.length - 1].push(slot)
+  }
+  // Leading, trailing or doubled spaces would otherwise leave empty groups
+  // behind, each drawing a gap the player can't account for.
+  return words.filter((word) => word.length > 0)
 }
 
 /**

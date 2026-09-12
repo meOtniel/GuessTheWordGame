@@ -4,29 +4,149 @@
   "theme": "general",
   "icon": "⚽",
   "questions": [
-    {"id": "spo-001", "difficulty": "easy", "prompt": "Întrecerea care se ține din patru în patru ani, reînviată în 1896 la Atena.", "answer": "OLIMPIADA"},
-    {"id": "spo-002", "difficulty": "easy", "prompt": "Sportul în care Nadia Comăneci a primit primul 10 din istorie, la Montreal.", "answer": "GIMNASTICA"},
-    {"id": "spo-003", "difficulty": "easy", "prompt": "Sportul născocit de James Naismith cu două coșuri de piersici prinse pe perete.", "answer": "BASCHETUL"},
-    {"id": "spo-004", "difficulty": "easy", "prompt": "Cursa de 42 de kilometri și 195 de metri, numită după un sat grecesc.", "answer": "MARATONUL"},
-    {"id": "spo-005", "difficulty": "easy", "prompt": "Sportul de sală cu șapte jucători pe teren, în care România a fost de patru ori campioană mondială.", "answer": "HANDBALUL"},
-    {"id": "spo-006", "difficulty": "easy", "prompt": "Sportul alergărilor, săriturilor și aruncărilor, numit regina Jocurilor Olimpice.", "answer": "ATLETISMUL"},
-    {"id": "spo-007", "difficulty": "easy", "prompt": "Sportul al cărui mare tur al Franței ține trei săptămâni și se încheie la Paris.", "answer": "CICLISMUL"},
-    {"id": "spo-008", "difficulty": "easy", "prompt": "Cel care arată cartonașul galben și fluieră începutul jocului.", "answer": "ARBITRUL"},
-    {"id": "spo-009", "difficulty": "easy", "prompt": "Cel mai vechi turneu de tenis din lume, singurul de Grand Slam jucat pe iarbă.", "answer": "WIMBLEDON"},
-    {"id": "spo-010", "difficulty": "medium", "prompt": "Proba olimpică ce leagă cinci discipline, între care scrima, călăria și tirul.", "answer": "PENTATLONUL"},
-    {"id": "spo-011", "difficulty": "medium", "prompt": "Sportul cu două stiluri de concurs: smuls și aruncat.", "answer": "HALTEROFILIA"},
-    {"id": "spo-012", "difficulty": "medium", "prompt": "Campionatul de monoposturi al cărui mare premiu se aleargă pe străzile din Monaco.", "answer": "FORMULA UNU"},
-    {"id": "spo-013", "difficulty": "medium", "prompt": "Cursa care înlănțuie fără pauză înotul, ciclismul și alergarea.", "answer": "TRIATLONUL"},
-    {"id": "spo-014", "difficulty": "medium", "prompt": "Sportul de iarnă cu sanie carenată și echipaj care împinge la start.", "answer": "BOBSLEIUL"},
-    {"id": "spo-015", "difficulty": "medium", "prompt": "Sportul de apă care i-a adus României cele mai multe medalii olimpice.", "answer": "CANOTAJUL"},
-    {"id": "spo-016", "difficulty": "medium", "prompt": "Proba de zece discipline al cărei câștigător e socotit cel mai complet atlet al lumii.", "answer": "DECATLONUL"},
-    {"id": "spo-017", "difficulty": "medium", "prompt": "Sportul cu rachetă în care se lovește peste fileu un fluturaș cu pene.", "answer": "BADMINTONUL"},
-    {"id": "spo-018", "difficulty": "medium", "prompt": "Locul unde se aleargă cursele de cai.", "answer": "HIPODROMUL"},
-    {"id": "spo-019", "difficulty": "hard", "prompt": "Sportul de iarnă în care pietrele de granit alunecă spre o țintă, iar coechipierii mătură gheața.", "answer": "CURLINGUL"},
-    {"id": "spo-020", "difficulty": "hard", "prompt": "Pista ovală și înclinată pe care se dispută cursele de ciclism sub acoperiș.", "answer": "VELODROMUL"},
-    {"id": "spo-021", "difficulty": "hard", "prompt": "Proba de alergare de 3000 de metri cu obstacole fixe și groapă cu apă.", "answer": "STEEPLECHASE"},
-    {"id": "spo-022", "difficulty": "hard", "prompt": "Proba de iarnă care unește schiul fond cu tirul cu carabina.", "answer": "BIATLONUL"},
-    {"id": "spo-023", "difficulty": "hard", "prompt": "Poziția de joc semnalizată de arbitrul asistent cu steagul ridicat.", "answer": "OFSAIDUL"},
-    {"id": "spo-024", "difficulty": "hard", "prompt": "Proba feminină cu șapte discipline, perechea decatlonului masculin.", "answer": "HEPTATLONUL"}
+    {
+      "id": "spo-001",
+      "difficulty": "easy",
+      "prompt": "Întrecerea care se ține din patru în patru ani, reînviată în 1896 la Atena.",
+      "answer": "OLIMPIADA"
+    },
+    {
+      "id": "spo-002",
+      "difficulty": "easy",
+      "prompt": "Sportul în care Nadia Comăneci a primit primul 10 din istorie, la Montreal.",
+      "answer": "GIMNASTICA"
+    },
+    {
+      "id": "spo-003",
+      "difficulty": "easy",
+      "prompt": "Sportul născocit de James Naismith cu două coșuri de piersici prinse pe perete.",
+      "answer": "BASCHETUL"
+    },
+    {
+      "id": "spo-004",
+      "difficulty": "easy",
+      "prompt": "Cursa de 42 de kilometri și 195 de metri, numită după un sat grecesc.",
+      "answer": "MARATONUL"
+    },
+    {
+      "id": "spo-005",
+      "difficulty": "easy",
+      "prompt": "Sportul de sală cu șapte jucători pe teren, în care România a fost de patru ori campioană mondială.",
+      "answer": "HANDBALUL"
+    },
+    {
+      "id": "spo-006",
+      "difficulty": "easy",
+      "prompt": "Sportul alergărilor, săriturilor și aruncărilor, numit regina Jocurilor Olimpice.",
+      "answer": "ATLETISMUL"
+    },
+    {
+      "id": "spo-007",
+      "difficulty": "easy",
+      "prompt": "Sportul al cărui mare tur al Franței ține trei săptămâni și se încheie la Paris.",
+      "answer": "CICLISMUL"
+    },
+    {
+      "id": "spo-008",
+      "difficulty": "easy",
+      "prompt": "Cel care arată cartonașul galben și fluieră începutul jocului.",
+      "answer": "ARBITRUL"
+    },
+    {
+      "id": "spo-009",
+      "difficulty": "easy",
+      "prompt": "Cel mai vechi turneu de tenis din lume, singurul de Grand Slam jucat pe iarbă.",
+      "answer": "WIMBLEDON"
+    },
+    {
+      "id": "spo-010",
+      "difficulty": "medium",
+      "prompt": "Proba olimpică ce leagă cinci discipline, între care scrima, călăria și tirul.",
+      "answer": "PENTATLONUL"
+    },
+    {
+      "id": "spo-011",
+      "difficulty": "medium",
+      "prompt": "Sportul în care se luptă cu mănuși, în ring, pe reprize de câte trei minute.",
+      "answer": "BOXUL"
+    },
+    {
+      "id": "spo-012",
+      "difficulty": "medium",
+      "prompt": "Campionatul de monoposturi al cărui mare premiu se aleargă pe străzile din Monaco.",
+      "answer": "FORMULA UNU"
+    },
+    {
+      "id": "spo-013",
+      "difficulty": "medium",
+      "prompt": "Cursa care înlănțuie fără pauză înotul, ciclismul și alergarea.",
+      "answer": "TRIATLONUL"
+    },
+    {
+      "id": "spo-014",
+      "difficulty": "medium",
+      "prompt": "Sportul de iarnă jucat pe patine, cu crosa și pucul.",
+      "answer": "HOCHEIUL"
+    },
+    {
+      "id": "spo-015",
+      "difficulty": "medium",
+      "prompt": "Sportul de apă care i-a adus României cele mai multe medalii olimpice.",
+      "answer": "CANOTAJUL"
+    },
+    {
+      "id": "spo-016",
+      "difficulty": "medium",
+      "prompt": "Proba de zece discipline al cărei câștigător e socotit cel mai complet atlet al lumii.",
+      "answer": "DECATLONUL"
+    },
+    {
+      "id": "spo-017",
+      "difficulty": "medium",
+      "prompt": "Sportul cu rachetă în care se lovește peste fileu un fluturaș cu pene.",
+      "answer": "BADMINTONUL"
+    },
+    {
+      "id": "spo-018",
+      "difficulty": "medium",
+      "prompt": "Locul unde se aleargă cursele de cai.",
+      "answer": "HIPODROMUL"
+    },
+    {
+      "id": "spo-019",
+      "difficulty": "hard",
+      "prompt": "Sportul de iarnă în care pietrele de granit alunecă spre o țintă, iar coechipierii mătură gheața.",
+      "answer": "CURLINGUL"
+    },
+    {
+      "id": "spo-020",
+      "difficulty": "hard",
+      "prompt": "Trofeul ridicat o dată la patru ani de echipa națională campioană la fotbal.",
+      "answer": "CUPA MONDIALĂ"
+    },
+    {
+      "id": "spo-021",
+      "difficulty": "hard",
+      "prompt": "Lovitura executată de la unsprezece metri, singur cu portarul.",
+      "answer": "PENALTIUL"
+    },
+    {
+      "id": "spo-022",
+      "difficulty": "hard",
+      "prompt": "Cucerirea tuturor celor patru turnee mari de tenis în același an.",
+      "answer": "MARELE ȘLEM"
+    },
+    {
+      "id": "spo-023",
+      "difficulty": "hard",
+      "prompt": "Ce îmbracă după fiecare etapă liderul clasamentului general din Turul Franței.",
+      "answer": "TRICOUL GALBEN"
+    },
+    {
+      "id": "spo-024",
+      "difficulty": "hard",
+      "prompt": "Cele trei goluri înscrise de același jucător într-un singur meci.",
+      "answer": "HAT-TRICK"
+    }
   ]
 }

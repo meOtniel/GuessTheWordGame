@@ -22,10 +22,10 @@
     {"id": "ist-016", "difficulty": "medium", "prompt": "Palatul în a cărui Galerie a Oglinzilor s-a semnat tratatul care a încheiat Primul Război Mondial.", "answer": "VERSAILLES"},
     {"id": "ist-017", "difficulty": "medium", "prompt": "Orașul egiptean al farului și al marii biblioteci, întemeiat de Alexandru Macedon.", "answer": "ALEXANDRIA"},
     {"id": "ist-018", "difficulty": "medium", "prompt": "Capitala regatului dac, apărată de ziduri de piatră în Munții Orăștiei.", "answer": "SARMIZEGETUSA"},
-    {"id": "ist-019", "difficulty": "hard", "prompt": "Râul pe care Cezar l-a trecut cu legiunile sale, pornind războiul civil.", "answer": "RUBICONUL"},
+    {"id": "ist-019", "difficulty": "hard", "prompt": "Gladiatorul trac care a ridicat sclavii la răscoală împotriva Romei.", "answer": "SPARTACUS"},
     {"id": "ist-020", "difficulty": "hard", "prompt": "Cercul de pietre din câmpia Salisbury, ridicat acum peste patru mii de ani.", "answer": "STONEHENGE"},
-    {"id": "ist-021", "difficulty": "hard", "prompt": "Pacea din 1648 care a pus capăt Războiului de Treizeci de Ani.", "answer": "WESTFALIA"},
-    {"id": "ist-022", "difficulty": "hard", "prompt": "Capitala aztecă ridicată pe un lac, peste care s-a construit apoi orașul Mexico.", "answer": "TENOCHTITLAN"},
+    {"id": "ist-021", "difficulty": "hard", "prompt": "Corabia amiral cu care Columb a traversat Atlanticul în 1492.", "answer": "SANTA MARIA"},
+    {"id": "ist-022", "difficulty": "hard", "prompt": "Orașul roman îngropat sub cenușă în anul 79 și scos la lumină după șaptesprezece secole.", "answer": "POMPEI"},
     {"id": "ist-023", "difficulty": "hard", "prompt": "Negustorul venețian care a povestit Europei despre curtea lui Kublai Han.", "answer": "MARCO POLO"},
     {"id": "ist-024", "difficulty": "hard", "prompt": "Curentul secolului al XVIII-lea care a așezat rațiunea mai presus de tradiție.", "answer": "ILUMINISMUL"}
   ]

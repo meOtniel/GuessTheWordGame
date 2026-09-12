@@ -22,11 +22,11 @@
     {"id": "geo-016", "difficulty": "medium", "prompt": "Termenul geografic pentru un grup de insule apropiate între ele.", "answer": "ARHIPELAG"},
     {"id": "geo-017", "difficulty": "medium", "prompt": "Regiunea turcească a coșurilor de zâne și a orașelor săpate sub pământ.", "answer": "CAPPADOCIA"},
     {"id": "geo-018", "difficulty": "medium", "prompt": "Portul rusesc de la Pacific, capătul de răsărit al Transsiberianului.", "answer": "VLADIVOSTOK"},
-    {"id": "geo-019", "difficulty": "hard", "prompt": "Cel mai înalt lac navigabil din lume, la granița dintre Peru și Bolivia.", "answer": "TITICACA"},
-    {"id": "geo-020", "difficulty": "hard", "prompt": "Peninsula rusească din Extremul Orient, presărată cu peste o sută de vulcani.", "answer": "KAMCEATKA"},
-    {"id": "geo-021", "difficulty": "hard", "prompt": "Capitala Madagascarului, așezată pe un platou la 1300 de metri altitudine.", "answer": "ANTANANARIVO"},
+    {"id": "geo-019", "difficulty": "hard", "prompt": "Cel mai adânc lac de pe Pământ, aflat în Siberia și plin cu o cincime din apa dulce a lumii.", "answer": "BAIKAL"},
+    {"id": "geo-020", "difficulty": "hard", "prompt": "Deșertul din nordul statului Chile, cel mai arid loc de pe Pământ.", "answer": "ATACAMA"},
+    {"id": "geo-021", "difficulty": "hard", "prompt": "Strâmtoarea care desparte Rusia de Alaska și Asia de America.", "answer": "BERING"},
     {"id": "geo-022", "difficulty": "hard", "prompt": "Strâmtoarea dintre America de Sud și Țara de Foc, numită după navigatorul portughez care a găsit-o.", "answer": "MAGELLAN"},
     {"id": "geo-023", "difficulty": "hard", "prompt": "Insula australiană de dincolo de strâmtoarea Bass, ultimul adăpost al diavolului cu același nume.", "answer": "TASMANIA"},
-    {"id": "geo-024", "difficulty": "hard", "prompt": "Insula arctică norvegiană unde se află seiful mondial de semințe.", "answer": "SPITSBERGEN"}
+    {"id": "geo-024", "difficulty": "hard", "prompt": "Capitala Australiei, oraș construit anume ca să împace Sydney și Melbourne.", "answer": "CANBERRA"}
   ]
 }

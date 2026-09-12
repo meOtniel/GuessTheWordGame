@@ -66,7 +66,6 @@ export function formatDuration(seconds: number): string {
   return `${m} min`
 }
 
-export { plural } from '@/lib/plural'
 
 export function formatClock(epochMs: number | null): string {
   if (epochMs === null) return '--:--'

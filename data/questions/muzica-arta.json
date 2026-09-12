@@ -4,29 +4,149 @@
   "theme": "general",
   "icon": "🎻",
   "questions": [
-    {"id": "muz-001", "difficulty": "easy", "prompt": "Lucrarea orchestrală în mai multe părți; a noua a lui Beethoven se încheie cu un cor.", "answer": "SIMFONIA"},
-    {"id": "muz-002", "difficulty": "easy", "prompt": "Cele cinci linii paralele pe care se așază notele.", "answer": "PORTATIVUL"},
-    {"id": "muz-003", "difficulty": "easy", "prompt": "Tehnica de pictură cu culori subțiate în apă, așternute pe hârtie.", "answer": "ACUARELA"},
-    {"id": "muz-004", "difficulty": "easy", "prompt": "Ansamblul condus de dirijor, cu coarde, suflători și percuție.", "answer": "ORCHESTRA"},
-    {"id": "muz-005", "difficulty": "easy", "prompt": "Instrumentul cu coarde ținut între genunchi, mai grav decât viola.", "answer": "VIOLONCELUL"},
-    {"id": "muz-006", "difficulty": "easy", "prompt": "Arta care scoate o formă din piatră, lemn sau bronz.", "answer": "SCULPTURA"},
-    {"id": "muz-007", "difficulty": "easy", "prompt": "Cuvântul pentru lucrarea cea mai izbutită din toată opera unui artist.", "answer": "CAPODOPERA"},
-    {"id": "muz-008", "difficulty": "easy", "prompt": "Clădirea gotică cu arcuri butante, vitralii și rozasă, biserica de scaun a episcopului.", "answer": "CATEDRALA"},
-    {"id": "muz-009", "difficulty": "easy", "prompt": "Tabloul în care pictorul se înfățișează pe sine însuși.", "answer": "AUTOPORTRETUL"},
-    {"id": "muz-010", "difficulty": "medium", "prompt": "Curentul botezat în batjocură după un tablou al lui Monet, „Impresie, răsărit de soare”.", "answer": "IMPRESIONISMUL"},
-    {"id": "muz-011", "difficulty": "medium", "prompt": "Formația de patru instrumente: două viori, violă și violoncel.", "answer": "CVARTETUL"},
-    {"id": "muz-012", "difficulty": "medium", "prompt": "Aparatul care bate tactul pentru cel care exersează.", "answer": "METRONOMUL"},
-    {"id": "muz-013", "difficulty": "medium", "prompt": "Tehnica de tipar artistic în care desenul se face cu creion gras pe piatră.", "answer": "LITOGRAFIA"},
-    {"id": "muz-014", "difficulty": "medium", "prompt": "Forma muzicală liberă, cu teme populare înlănțuite, în care Enescu a prins jocul românesc.", "answer": "RAPSODIA"},
-    {"id": "muz-015", "difficulty": "medium", "prompt": "Descoperirea Renașterii care dă adâncime unei suprafețe plate, cu linii ce fug spre un punct.", "answer": "PERSPECTIVA"},
-    {"id": "muz-016", "difficulty": "medium", "prompt": "Arta împletirii mai multor melodii de sine stătătoare, stăpânită desăvârșit de Bach.", "answer": "CONTRAPUNCTUL"},
-    {"id": "muz-017", "difficulty": "medium", "prompt": "Imaginea alcătuită din mii de bucățele colorate de piatră sau sticlă.", "answer": "MOZAICUL"},
-    {"id": "muz-018", "difficulty": "medium", "prompt": "Genul de pictură cu fructe, vase și flori așezate pe o masă.", "answer": "NATURA MOARTĂ"},
-    {"id": "muz-019", "difficulty": "hard", "prompt": "Instrumentul cu clape ale cărui corzi sunt ciupite, nu lovite — înaintașul pianului.", "answer": "CLAVECINUL"},
-    {"id": "muz-020", "difficulty": "hard", "prompt": "Jocul tăios dintre lumină și umbră, marca lui Caravaggio.", "answer": "CHIAROSCURO"},
-    {"id": "muz-021", "difficulty": "hard", "prompt": "Muzica pe mai multe voci de sine stătătoare, potrivnică cântării pe o singură voce.", "answer": "POLIFONIA"},
-    {"id": "muz-022", "difficulty": "hard", "prompt": "Indicația prin care violonistul lasă arcușul și ciupește coarda cu degetul.", "answer": "PIZZICATO"},
-    {"id": "muz-023", "difficulty": "hard", "prompt": "Lucrarea de altar din trei panouri, dintre care două se pot închide peste cel din mijloc.", "answer": "TRIPTICUL"},
-    {"id": "muz-024", "difficulty": "hard", "prompt": "Furculița de metal care dă nota la, reper pentru acordarea instrumentelor.", "answer": "DIAPAZONUL"}
+    {
+      "id": "muz-001",
+      "difficulty": "easy",
+      "prompt": "Lucrarea orchestrală în mai multe părți; a noua a lui Beethoven se încheie cu un cor.",
+      "answer": "SIMFONIA"
+    },
+    {
+      "id": "muz-002",
+      "difficulty": "easy",
+      "prompt": "Cele cinci linii paralele pe care se așază notele.",
+      "answer": "PORTATIVUL"
+    },
+    {
+      "id": "muz-003",
+      "difficulty": "easy",
+      "prompt": "Tehnica de pictură cu culori subțiate în apă, așternute pe hârtie.",
+      "answer": "ACUARELA"
+    },
+    {
+      "id": "muz-004",
+      "difficulty": "easy",
+      "prompt": "Ansamblul condus de dirijor, cu coarde, suflători și percuție.",
+      "answer": "ORCHESTRA"
+    },
+    {
+      "id": "muz-005",
+      "difficulty": "easy",
+      "prompt": "Instrumentul cu coarde ținut între genunchi, mai grav decât viola.",
+      "answer": "VIOLONCELUL"
+    },
+    {
+      "id": "muz-006",
+      "difficulty": "easy",
+      "prompt": "Arta care scoate o formă din piatră, lemn sau bronz.",
+      "answer": "SCULPTURA"
+    },
+    {
+      "id": "muz-007",
+      "difficulty": "easy",
+      "prompt": "Cuvântul pentru lucrarea cea mai izbutită din toată opera unui artist.",
+      "answer": "CAPODOPERA"
+    },
+    {
+      "id": "muz-008",
+      "difficulty": "easy",
+      "prompt": "Clădirea gotică cu arcuri butante, vitralii și rozasă, biserica de scaun a episcopului.",
+      "answer": "CATEDRALA"
+    },
+    {
+      "id": "muz-009",
+      "difficulty": "easy",
+      "prompt": "Tabloul în care pictorul se înfățișează pe sine însuși.",
+      "answer": "AUTOPORTRETUL"
+    },
+    {
+      "id": "muz-010",
+      "difficulty": "medium",
+      "prompt": "Curentul botezat în batjocură după un tablou al lui Monet, „Impresie, răsărit de soare”.",
+      "answer": "IMPRESIONISMUL"
+    },
+    {
+      "id": "muz-011",
+      "difficulty": "medium",
+      "prompt": "Formația de patru instrumente: două viori, violă și violoncel.",
+      "answer": "CVARTETUL"
+    },
+    {
+      "id": "muz-012",
+      "difficulty": "medium",
+      "prompt": "Aparatul care bate tactul pentru cel care exersează.",
+      "answer": "METRONOMUL"
+    },
+    {
+      "id": "muz-013",
+      "difficulty": "medium",
+      "prompt": "Tehnica de tipar artistic în care desenul se face cu creion gras pe piatră.",
+      "answer": "LITOGRAFIA"
+    },
+    {
+      "id": "muz-014",
+      "difficulty": "medium",
+      "prompt": "Forma muzicală liberă, cu teme populare înlănțuite, în care Enescu a prins jocul românesc.",
+      "answer": "RAPSODIA"
+    },
+    {
+      "id": "muz-015",
+      "difficulty": "medium",
+      "prompt": "Descoperirea Renașterii care dă adâncime unei suprafețe plate, cu linii ce fug spre un punct.",
+      "answer": "PERSPECTIVA"
+    },
+    {
+      "id": "muz-016",
+      "difficulty": "medium",
+      "prompt": "Arta împletirii mai multor melodii de sine stătătoare, stăpânită desăvârșit de Bach.",
+      "answer": "CONTRAPUNCTUL"
+    },
+    {
+      "id": "muz-017",
+      "difficulty": "medium",
+      "prompt": "Imaginea alcătuită din mii de bucățele colorate de piatră sau sticlă.",
+      "answer": "MOZAICUL"
+    },
+    {
+      "id": "muz-018",
+      "difficulty": "medium",
+      "prompt": "Genul de pictură cu fructe, vase și flori așezate pe o masă.",
+      "answer": "NATURA MOARTĂ"
+    },
+    {
+      "id": "muz-019",
+      "difficulty": "hard",
+      "prompt": "Pictorul olandez cu urechea tăiată, care a zugrăvit o noapte înstelată și lanuri de floarea-soarelui.",
+      "answer": "VAN GOGH"
+    },
+    {
+      "id": "muz-020",
+      "difficulty": "hard",
+      "prompt": "Tabloul lui Munch cu silueta de pe pod care își duce mâinile la obraji.",
+      "answer": "STRIGĂTUL"
+    },
+    {
+      "id": "muz-021",
+      "difficulty": "hard",
+      "prompt": "Statuia de marmură a lui Michelangelo, din Florența, înfățișându-l pe tânărul care l-a doborât pe Goliat.",
+      "answer": "DAVID"
+    },
+    {
+      "id": "muz-022",
+      "difficulty": "hard",
+      "prompt": "Preotul venețian care a scris concertele „Cele patru anotimpuri”.",
+      "answer": "VIVALDI"
+    },
+    {
+      "id": "muz-023",
+      "difficulty": "hard",
+      "prompt": "Pictura așternută pe tencuiala încă udă a peretelui, ca la Capela Sixtină.",
+      "answer": "FRESCA"
+    },
+    {
+      "id": "muz-024",
+      "difficulty": "hard",
+      "prompt": "Spectacolul în care povestea se spune numai prin dans, pe vârfuri.",
+      "answer": "BALETUL"
+    }
   ]
 }

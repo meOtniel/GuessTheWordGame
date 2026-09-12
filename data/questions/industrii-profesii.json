@@ -4,29 +4,149 @@
   "theme": "general",
   "icon": "🛠️",
   "questions": [
-    {"id": "ind-001", "difficulty": "easy", "prompt": "Cel care gândește și desenează clădirea, înainte ca zidarii să ridice primul rând de cărămizi.", "answer": "ARHITECTUL"},
-    {"id": "ind-002", "difficulty": "easy", "prompt": "Medicul la care se ajunge cu durerea de măsea.", "answer": "STOMATOLOGUL"},
-    {"id": "ind-003", "difficulty": "easy", "prompt": "Meseriașul chemat când sare siguranța și rămâne casa fără lumină.", "answer": "ELECTRICIANUL"},
-    {"id": "ind-004", "difficulty": "easy", "prompt": "Cel care ține rânduiala cărților, a rafturilor și a împrumuturilor.", "answer": "BIBLIOTECARUL"},
-    {"id": "ind-005", "difficulty": "easy", "prompt": "Doctorul care își tratează pacienții fără să poată sta de vorbă cu ei.", "answer": "VETERINARUL"},
-    {"id": "ind-006", "difficulty": "easy", "prompt": "Meseriașul lemnului — meseria lui Iosif din Nazaret.", "answer": "TÂMPLARUL"},
-    {"id": "ind-007", "difficulty": "easy", "prompt": "Cel care ține socotelile firmei și încheie bilanțul la sfârșit de an.", "answer": "CONTABILUL"},
-    {"id": "ind-008", "difficulty": "easy", "prompt": "Cel care eliberează medicamentul pe baza rețetei.", "answer": "FARMACISTUL"},
-    {"id": "ind-009", "difficulty": "easy", "prompt": "Cel care duce la îndeplinire, prin calcul, ceea ce a fost doar gândit pe hârtie.", "answer": "INGINERUL"},
-    {"id": "ind-010", "difficulty": "medium", "prompt": "Medicul care adoarme bolnavul înainte de operație și îi veghează respirația.", "answer": "ANESTEZISTUL"},
-    {"id": "ind-011", "difficulty": "medium", "prompt": "Cel care măsoară terenul cu teodolitul înainte să înceapă construcția.", "answer": "TOPOGRAFUL"},
-    {"id": "ind-012", "difficulty": "medium", "prompt": "Cel care păstrează și rânduiește documentele vechi ale unei instituții.", "answer": "ARHIVARUL"},
-    {"id": "ind-013", "difficulty": "medium", "prompt": "Meseriașul care face și drege încălțămintea.", "answer": "CIZMARUL"},
-    {"id": "ind-014", "difficulty": "medium", "prompt": "Meseriașul care înmulțește textul pe hârtie, urmaș al lui Gutenberg.", "answer": "TIPOGRAFUL"},
-    {"id": "ind-015", "difficulty": "medium", "prompt": "Cea care ia măsura și coase rochia pe corp, nu după tipar gata făcut.", "answer": "CROITOREASA"},
-    {"id": "ind-016", "difficulty": "medium", "prompt": "Specialistul care hotărăște ce se seamănă pe tarla și când se strânge recolta.", "answer": "AGRONOMUL"},
-    {"id": "ind-017", "difficulty": "medium", "prompt": "Meseriașul chemat pentru țevi, pentru boiler și pentru robinetul care picură.", "answer": "INSTALATORUL"},
-    {"id": "ind-018", "difficulty": "medium", "prompt": "Ramura industriei care scoate metalele din minereu și le prelucrează.", "answer": "METALURGIA"},
-    {"id": "ind-019", "difficulty": "hard", "prompt": "Specialistul în cultura pomilor, a legumelor și a florilor.", "answer": "HORTICULTORUL"},
-    {"id": "ind-020", "difficulty": "hard", "prompt": "Cel care alege și recomandă vinul potrivit fiecărui fel de mâncare.", "answer": "SOMELIERUL"},
-    {"id": "ind-021", "difficulty": "hard", "prompt": "Specialistul care readuce la viață o pictură veche sau o clădire istorică.", "answer": "RESTAURATORUL"},
-    {"id": "ind-022", "difficulty": "hard", "prompt": "Cel care îngrijește stupii și strânge mierea.", "answer": "APICULTORUL"},
-    {"id": "ind-023", "difficulty": "hard", "prompt": "Cel care întocmește hărți.", "answer": "CARTOGRAFUL"},
-    {"id": "ind-024", "difficulty": "hard", "prompt": "Ramura industriei grele care produce fontă și oțel.", "answer": "SIDERURGIA"}
+    {
+      "id": "ind-001",
+      "difficulty": "easy",
+      "prompt": "Cel care gândește și desenează clădirea, înainte ca zidarii să ridice primul rând de cărămizi.",
+      "answer": "ARHITECTUL"
+    },
+    {
+      "id": "ind-002",
+      "difficulty": "easy",
+      "prompt": "Medicul la care se ajunge cu durerea de măsea.",
+      "answer": "STOMATOLOGUL"
+    },
+    {
+      "id": "ind-003",
+      "difficulty": "easy",
+      "prompt": "Meseriașul chemat când sare siguranța și rămâne casa fără lumină.",
+      "answer": "ELECTRICIANUL"
+    },
+    {
+      "id": "ind-004",
+      "difficulty": "easy",
+      "prompt": "Cel care ține rânduiala cărților, a rafturilor și a împrumuturilor.",
+      "answer": "BIBLIOTECARUL"
+    },
+    {
+      "id": "ind-005",
+      "difficulty": "easy",
+      "prompt": "Doctorul care își tratează pacienții fără să poată sta de vorbă cu ei.",
+      "answer": "VETERINARUL"
+    },
+    {
+      "id": "ind-006",
+      "difficulty": "easy",
+      "prompt": "Meseriașul lemnului — meseria lui Iosif din Nazaret.",
+      "answer": "TÂMPLARUL"
+    },
+    {
+      "id": "ind-007",
+      "difficulty": "easy",
+      "prompt": "Cel care ține socotelile firmei și încheie bilanțul la sfârșit de an.",
+      "answer": "CONTABILUL"
+    },
+    {
+      "id": "ind-008",
+      "difficulty": "easy",
+      "prompt": "Cel care eliberează medicamentul pe baza rețetei.",
+      "answer": "FARMACISTUL"
+    },
+    {
+      "id": "ind-009",
+      "difficulty": "easy",
+      "prompt": "Cel care duce la îndeplinire, prin calcul, ceea ce a fost doar gândit pe hârtie.",
+      "answer": "INGINERUL"
+    },
+    {
+      "id": "ind-010",
+      "difficulty": "medium",
+      "prompt": "Medicul care adoarme bolnavul înainte de operație și îi veghează respirația.",
+      "answer": "ANESTEZISTUL"
+    },
+    {
+      "id": "ind-011",
+      "difficulty": "medium",
+      "prompt": "Cel care măsoară terenul cu teodolitul înainte să înceapă construcția.",
+      "answer": "TOPOGRAFUL"
+    },
+    {
+      "id": "ind-012",
+      "difficulty": "medium",
+      "prompt": "Cel care păstrează și rânduiește documentele vechi ale unei instituții.",
+      "answer": "ARHIVARUL"
+    },
+    {
+      "id": "ind-013",
+      "difficulty": "medium",
+      "prompt": "Meseriașul care face și drege încălțămintea.",
+      "answer": "CIZMARUL"
+    },
+    {
+      "id": "ind-014",
+      "difficulty": "medium",
+      "prompt": "Meseriașul care înmulțește textul pe hârtie, urmaș al lui Gutenberg.",
+      "answer": "TIPOGRAFUL"
+    },
+    {
+      "id": "ind-015",
+      "difficulty": "medium",
+      "prompt": "Cea care ia măsura și coase rochia pe corp, nu după tipar gata făcut.",
+      "answer": "CROITOREASA"
+    },
+    {
+      "id": "ind-016",
+      "difficulty": "medium",
+      "prompt": "Specialistul care hotărăște ce se seamănă pe tarla și când se strânge recolta.",
+      "answer": "AGRONOMUL"
+    },
+    {
+      "id": "ind-017",
+      "difficulty": "medium",
+      "prompt": "Meseriașul chemat pentru țevi, pentru boiler și pentru robinetul care picură.",
+      "answer": "INSTALATORUL"
+    },
+    {
+      "id": "ind-018",
+      "difficulty": "medium",
+      "prompt": "Ramura industriei care scoate metalele din minereu și le prelucrează.",
+      "answer": "METALURGIA"
+    },
+    {
+      "id": "ind-019",
+      "difficulty": "hard",
+      "prompt": "Specialistul în cultura pomilor, a legumelor și a florilor.",
+      "answer": "HORTICULTORUL"
+    },
+    {
+      "id": "ind-020",
+      "difficulty": "hard",
+      "prompt": "Cel care alege și recomandă vinul potrivit fiecărui fel de mâncare.",
+      "answer": "SOMELIERUL"
+    },
+    {
+      "id": "ind-021",
+      "difficulty": "hard",
+      "prompt": "Specialistul care readuce la viață o pictură veche sau o clădire istorică.",
+      "answer": "RESTAURATORUL"
+    },
+    {
+      "id": "ind-022",
+      "difficulty": "hard",
+      "prompt": "Cel care îngrijește stupii și strânge mierea.",
+      "answer": "APICULTORUL"
+    },
+    {
+      "id": "ind-023",
+      "difficulty": "hard",
+      "prompt": "Cel care întocmește hărți.",
+      "answer": "CARTOGRAFUL"
+    },
+    {
+      "id": "ind-024",
+      "difficulty": "hard",
+      "prompt": "Ramura industriei grele care produce fontă și oțel.",
+      "answer": "SIDERURGIA"
+    }
   ]
 }

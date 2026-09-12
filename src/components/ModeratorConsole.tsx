@@ -1,7 +1,8 @@
 'use client'
 
 import { CountdownRing } from '@/components/CountdownRing'
-import { Button, DifficultyBadge, plural } from '@/components/ui'
+import { Button, DifficultyBadge } from '@/components/ui'
+import { plural } from '@/lib/plural'
 import { useCountdown } from '@/lib/useSession'
 import type { PublicState } from '@/lib/types'
 import type { useSession } from '@/lib/useSession'

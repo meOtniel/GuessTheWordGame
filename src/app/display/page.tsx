@@ -3,6 +3,7 @@
 import { CountdownRing } from '@/components/CountdownRing'
 import { Leaderboard, Podium } from '@/components/Leaderboard'
 import { DifficultyBadge } from '@/components/ui'
+import { slotWords } from '@/lib/tiles'
 import { useCountdown, useSession } from '@/lib/useSession'
 import type { PublicQuestion } from '@/lib/types'
 
@@ -27,7 +28,7 @@ export default function DisplayPage() {
       <Screen>
         <h1 className="font-display text-plum mb-4 text-7xl font-bold">Ghicește Cuvântul</h1>
         {state.lastSession ? (
-          <div className="w-full max-w-3xl">
+          <div className="w-full max-w-5xl">
             <p className="text-ink-soft mb-6 text-2xl">Clasamentul sesiunii trecute</p>
             <Leaderboard rows={state.lastSession.rows} big />
           </div>
@@ -44,7 +45,7 @@ export default function DisplayPage() {
         <p className="text-ink-soft text-4xl">Urmează</p>
         <h1 className="font-display text-plum my-8 text-8xl font-bold">{state.currentPlayer?.name}</h1>
         {state.leaderboard.some((r) => r.points > 0) && (
-          <div className="mt-8 w-full max-w-3xl">
+          <div className="mt-8 w-full max-w-5xl">
             <Leaderboard rows={state.leaderboard} highlightId={state.currentPlayer?.id} />
           </div>
         )}
@@ -98,7 +99,7 @@ export default function DisplayPage() {
       <Screen>
         <h1 className="font-display text-6xl font-bold">{state.turnSummary.playerName}</h1>
         <p className="font-display text-plum my-8 text-9xl font-bold tabular-nums">{state.turnSummary.points}</p>
-        <div className="w-full max-w-3xl">
+        <div className="w-full max-w-5xl">
           <Leaderboard rows={state.leaderboard} highlightId={state.currentPlayer?.id} big />
         </div>
       </Screen>
@@ -121,25 +122,31 @@ export default function DisplayPage() {
 function AudienceBoard({ question }: { question: PublicQuestion }) {
   const revealedIds = new Set(Object.values(question.revealedSlots))
   const pool = question.tiles.filter((t) => !revealedIds.has(t.id))
+  const words = slotWords(question.slots)
 
   return (
     <div className="flex flex-1 flex-col items-center justify-center gap-12">
-      <div className="flex flex-wrap items-center justify-center gap-2">
-        {question.slots.map((slot) => {
-          if (slot.kind === 'gap') return <div key={slot.index} className="w-6" aria-hidden />
-          const tileId = question.revealedSlots[slot.index]
-          const tile = tileId ? question.tiles.find((t) => t.id === tileId) : null
-          return (
-            <div
-              key={slot.index}
-              className={`font-display flex h-24 w-20 items-center justify-center rounded-xl border-4 text-5xl font-bold ${
-                tile ? 'border-gold bg-gold-light text-ink' : 'border-ink/20 border-dashed bg-white/50'
-              }`}
-            >
-              {tile?.char ?? ''}
-            </div>
-          )
-        })}
+      {/* One group per word, matching the player's tablet, so the room is
+          looking at the same shape the guest is. */}
+      <div className="flex flex-wrap items-center justify-center gap-x-14 gap-y-4">
+        {words.map((word) => (
+          <div key={word[0].index} className="flex flex-wrap items-center justify-center gap-2">
+            {word.map((slot) => {
+              const tileId = question.revealedSlots[slot.index]
+              const tile = tileId ? question.tiles.find((t) => t.id === tileId) : null
+              return (
+                <div
+                  key={slot.index}
+                  className={`font-display flex h-24 w-20 items-center justify-center rounded-xl border-4 text-5xl font-bold ${
+                    tile ? 'border-gold bg-gold-light text-ink' : 'border-ink/20 border-dashed bg-white/50'
+                  }`}
+                >
+                  {tile?.char ?? ''}
+                </div>
+              )
+            })}
+          </div>
+        ))}
       </div>
 
       <div className="flex flex-wrap items-center justify-center gap-2 opacity-80">

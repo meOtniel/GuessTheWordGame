@@ -4,29 +4,149 @@
   "theme": "general",
   "icon": "🔬",
   "questions": [
-    {"id": "sti-001", "difficulty": "easy", "prompt": "Procesul prin care planta își face hrană din lumină, apă și dioxid de carbon.", "answer": "FOTOSINTEZA"},
-    {"id": "sti-002", "difficulty": "easy", "prompt": "Forța care ține Luna pe orbită și mărul pe pământ.", "answer": "GRAVITAȚIA"},
-    {"id": "sti-003", "difficulty": "easy", "prompt": "Prefacerea omizii în fluture, trecând prin starea de crisalidă.", "answer": "METAMORFOZA"},
-    {"id": "sti-004", "difficulty": "easy", "prompt": "Gazul care alcătuiește o cincime din aer și fără de care nimic nu poate arde.", "answer": "OXIGENUL"},
-    {"id": "sti-005", "difficulty": "easy", "prompt": "Însușirea din pricina căreia acul busolei arată mereu spre nord.", "answer": "MAGNETISMUL"},
-    {"id": "sti-006", "difficulty": "easy", "prompt": "Cele 206 oase ale unui om matur, luate laolaltă.", "answer": "SCHELETUL"},
-    {"id": "sti-007", "difficulty": "easy", "prompt": "Stăpânii uscatului dispăruți acum 66 de milioane de ani, după căderea unui asteroid.", "answer": "DINOZAURII"},
-    {"id": "sti-008", "difficulty": "easy", "prompt": "Instrumentul cu care Galilei a văzut cei patru sateliți ai lui Jupiter.", "answer": "TELESCOPUL"},
-    {"id": "sti-009", "difficulty": "easy", "prompt": "Ce se vede când lumina albă se desface în culori prin picăturile de ploaie.", "answer": "CURCUBEUL"},
-    {"id": "sti-010", "difficulty": "medium", "prompt": "Trecerea apei în vapori, treapta dinaintea alcătuirii norilor.", "answer": "EVAPORAREA"},
-    {"id": "sti-011", "difficulty": "medium", "prompt": "Leacul descoperit de Fleming dintr-un mucegai crescut din întâmplare într-o cutie uitată.", "answer": "ANTIBIOTICUL"},
-    {"id": "sti-012", "difficulty": "medium", "prompt": "Cele 46 de structuri din nucleul celulei care poartă informația moștenită.", "answer": "CROMOZOMII"},
-    {"id": "sti-013", "difficulty": "medium", "prompt": "Somnul de iarnă în care ursul își rărește bătăile inimii și își scade temperatura.", "answer": "HIBERNAREA"},
-    {"id": "sti-014", "difficulty": "medium", "prompt": "Sunetele de peste 20 000 de hertzi, cu care liliacul se orientează în întuneric.", "answer": "ULTRASUNETE"},
-    {"id": "sti-015", "difficulty": "medium", "prompt": "Fenomenul cercetat de Marie Curie, care i-a adus două premii Nobel.", "answer": "RADIOACTIVITATEA"},
-    {"id": "sti-016", "difficulty": "medium", "prompt": "Desfacerea apei în hidrogen și oxigen cu ajutorul curentului electric.", "answer": "ELECTROLIZA"},
-    {"id": "sti-017", "difficulty": "medium", "prompt": "Munca albinei de care atârnă aproape o treime din hrana omenirii.", "answer": "POLENIZAREA"},
-    {"id": "sti-018", "difficulty": "medium", "prompt": "Aparatul care înregistrează pe hârtie tremurul scoarței.", "answer": "SEISMOGRAFUL"},
-    {"id": "sti-019", "difficulty": "hard", "prompt": "Mărimea care arată că dezordinea unui sistem închis nu poate decât să crească.", "answer": "ENTROPIA"},
-    {"id": "sti-020", "difficulty": "hard", "prompt": "Organitul numit uzina de energie a celulei, moștenit numai de la mamă.", "answer": "MITOCONDRIA"},
-    {"id": "sti-021", "difficulty": "hard", "prompt": "Lumina rece produsă de licurici și de viețuitoarele din adâncuri.", "answer": "BIOLUMINESCENȚA"},
-    {"id": "sti-022", "difficulty": "hard", "prompt": "Bucățile de scoarță a căror mișcare naște munții, cutremurele și vulcanii.", "answer": "PLĂCILE TECTONICE"},
-    {"id": "sti-023", "difficulty": "hard", "prompt": "Viețuitoarea microscopică supranumită ursuleț de apă, care rezistă și în vidul cosmic.", "answer": "TARDIGRADUL"},
-    {"id": "sti-024", "difficulty": "hard", "prompt": "Substanța care grăbește o reacție chimică fără să se consume în ea.", "answer": "CATALIZATORUL"}
+    {
+      "id": "sti-001",
+      "difficulty": "easy",
+      "prompt": "Procesul prin care planta își face hrană din lumină, apă și dioxid de carbon.",
+      "answer": "FOTOSINTEZA"
+    },
+    {
+      "id": "sti-002",
+      "difficulty": "easy",
+      "prompt": "Forța care ține Luna pe orbită și mărul pe pământ.",
+      "answer": "GRAVITAȚIA"
+    },
+    {
+      "id": "sti-003",
+      "difficulty": "easy",
+      "prompt": "Prefacerea omizii în fluture, trecând prin starea de crisalidă.",
+      "answer": "METAMORFOZA"
+    },
+    {
+      "id": "sti-004",
+      "difficulty": "easy",
+      "prompt": "Gazul care alcătuiește o cincime din aer și fără de care nimic nu poate arde.",
+      "answer": "OXIGENUL"
+    },
+    {
+      "id": "sti-005",
+      "difficulty": "easy",
+      "prompt": "Însușirea din pricina căreia acul busolei arată mereu spre nord.",
+      "answer": "MAGNETISMUL"
+    },
+    {
+      "id": "sti-006",
+      "difficulty": "easy",
+      "prompt": "Cele 206 oase ale unui om matur, luate laolaltă.",
+      "answer": "SCHELETUL"
+    },
+    {
+      "id": "sti-007",
+      "difficulty": "easy",
+      "prompt": "Lichidul roșu pe care inima îl împinge prin vene și artere, ducând oxigenul în tot trupul.",
+      "answer": "SÂNGELE"
+    },
+    {
+      "id": "sti-008",
+      "difficulty": "easy",
+      "prompt": "Instrumentul cu care Galilei a văzut cei patru sateliți ai lui Jupiter.",
+      "answer": "TELESCOPUL"
+    },
+    {
+      "id": "sti-009",
+      "difficulty": "easy",
+      "prompt": "Ce se vede când lumina albă se desface în culori prin picăturile de ploaie.",
+      "answer": "CURCUBEUL"
+    },
+    {
+      "id": "sti-010",
+      "difficulty": "medium",
+      "prompt": "Trecerea apei în vapori, treapta dinaintea alcătuirii norilor.",
+      "answer": "EVAPORAREA"
+    },
+    {
+      "id": "sti-011",
+      "difficulty": "medium",
+      "prompt": "Leacul descoperit de Fleming dintr-un mucegai crescut din întâmplare într-o cutie uitată.",
+      "answer": "ANTIBIOTICUL"
+    },
+    {
+      "id": "sti-012",
+      "difficulty": "medium",
+      "prompt": "Cele 46 de structuri din nucleul celulei care poartă informația moștenită.",
+      "answer": "CROMOZOMII"
+    },
+    {
+      "id": "sti-013",
+      "difficulty": "medium",
+      "prompt": "Somnul de iarnă în care ursul își rărește bătăile inimii și își scade temperatura.",
+      "answer": "HIBERNAREA"
+    },
+    {
+      "id": "sti-014",
+      "difficulty": "medium",
+      "prompt": "Sunetele de peste 20 000 de hertzi, cu care liliacul se orientează în întuneric.",
+      "answer": "ULTRASUNETE"
+    },
+    {
+      "id": "sti-015",
+      "difficulty": "medium",
+      "prompt": "Fenomenul cercetat de Marie Curie, care i-a adus două premii Nobel.",
+      "answer": "RADIOACTIVITATEA"
+    },
+    {
+      "id": "sti-016",
+      "difficulty": "medium",
+      "prompt": "Desfacerea apei în hidrogen și oxigen cu ajutorul curentului electric.",
+      "answer": "ELECTROLIZA"
+    },
+    {
+      "id": "sti-017",
+      "difficulty": "medium",
+      "prompt": "Munca albinei de care atârnă aproape o treime din hrana omenirii.",
+      "answer": "POLENIZAREA"
+    },
+    {
+      "id": "sti-018",
+      "difficulty": "medium",
+      "prompt": "Aparatul care înregistrează pe hârtie tremurul scoarței.",
+      "answer": "SEISMOGRAFUL"
+    },
+    {
+      "id": "sti-019",
+      "difficulty": "hard",
+      "prompt": "Mărimea care arată că dezordinea unui sistem închis nu poate decât să crească.",
+      "answer": "ENTROPIA"
+    },
+    {
+      "id": "sti-020",
+      "difficulty": "hard",
+      "prompt": "Organitul numit uzina de energie a celulei, moștenit numai de la mamă.",
+      "answer": "MITOCONDRIA"
+    },
+    {
+      "id": "sti-021",
+      "difficulty": "hard",
+      "prompt": "Lumina rece produsă de licurici și de viețuitoarele din adâncuri.",
+      "answer": "BIOLUMINESCENȚA"
+    },
+    {
+      "id": "sti-022",
+      "difficulty": "hard",
+      "prompt": "Bucățile de scoarță a căror mișcare naște munții, cutremurele și vulcanii.",
+      "answer": "PLĂCILE TECTONICE"
+    },
+    {
+      "id": "sti-023",
+      "difficulty": "hard",
+      "prompt": "Viețuitoarea microscopică supranumită ursuleț de apă, care rezistă și în vidul cosmic.",
+      "answer": "TARDIGRADUL"
+    },
+    {
+      "id": "sti-024",
+      "difficulty": "hard",
+      "prompt": "Substanța care grăbește o reacție chimică fără să se consume în ea.",
+      "answer": "CATALIZATORUL"
+    }
   ]
 }
