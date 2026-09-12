@@ -86,6 +86,25 @@ export function useSession(options: { host?: boolean } = {}) {
     [apply],
   )
 
+  /**
+   * Fire-and-forget: the live board is cosmetic, so a dropped report costs the
+   * room one stale frame and nothing more. Crucially the reply is discarded
+   * rather than applied — letting the server's copy of the board back in would
+   * have it fight the player's own taps over a slow link.
+   */
+  const report = useCallback(async (url: string, body: unknown) => {
+    try {
+      await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+        keepalive: true,
+      })
+    } catch {
+      // the next tap reports again
+    }
+  }, [])
+
   // Memoised so the object identity is stable across renders. Without this,
   // every SSE push re-ran effects that depend on `actions` — which kept
   // restarting the reveal screen's auto-advance timer and made the reveal
@@ -95,6 +114,8 @@ export function useSession(options: { host?: boolean } = {}) {
       startTurn: () => post('/api/turn', { action: 'start' }),
       advance: () => post('/api/turn', { action: 'advance' }),
       submit: (placement: Record<number, string>) => post('/api/answer', { placement }),
+      /** Mirror the half-built board to the projector and the moderator. */
+      reportPlacement: (placement: Record<number, string>) => void report('/api/placement', { placement }),
       /** Moderator verdict on a spoken answer, scored like a tapped one. */
       judge: (correct: boolean) => post('/api/judge', { correct }),
       hint: () => post('/api/hint'),
@@ -107,7 +128,7 @@ export function useSession(options: { host?: boolean } = {}) {
       adjust: (playerId: string, delta: number) => post('/api/admin', { action: 'adjust', playerId, delta }),
       setTimeouts: (timeouts: ByDifficulty<number>) => post('/api/admin', { action: 'timeouts', timeouts }),
     }),
-    [post],
+    [post, report],
   )
 
   return { state, connected, serverNow, actions, refresh: apply }

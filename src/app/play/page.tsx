@@ -123,6 +123,7 @@ export default function PlayPage() {
             disabled={busy || state.paused}
             onSubmit={handleSubmit}
             wrongSignal={wrongSignal}
+            onPlacementChange={actions.reportPlacement}
           />
         </div>
 

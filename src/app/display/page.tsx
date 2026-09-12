@@ -118,10 +118,19 @@ export default function DisplayPage() {
   return <Screen>…</Screen>
 }
 
-/** Slot outlines with the revealed letters, plus the scrambled pool. */
+/**
+ * The player's board as the room sees it: helper letters, whatever the guest
+ * has tapped in so far, and the pool still to be used.
+ *
+ * The mirror is exact — tiles leave the pool here at the same moment they leave
+ * it on the tablet — so the room can follow along and work the word out
+ * alongside the guest instead of waiting on a finished guess.
+ */
 function AudienceBoard({ question }: { question: PublicQuestion }) {
-  const revealedIds = new Set(Object.values(question.revealedSlots))
-  const pool = question.tiles.filter((t) => !revealedIds.has(t.id))
+  // Helper letters first, so a reported board can never overwrite one.
+  const filled: Record<number, string> = { ...question.livePlacement, ...question.revealedSlots }
+  const usedIds = new Set(Object.values(filled))
+  const pool = question.tiles.filter((t) => !usedIds.has(t.id))
   const words = slotWords(question.slots)
 
   return (
@@ -132,13 +141,21 @@ function AudienceBoard({ question }: { question: PublicQuestion }) {
         {words.map((word) => (
           <div key={word[0].index} className="flex flex-wrap items-center justify-center gap-2">
             {word.map((slot) => {
-              const tileId = question.revealedSlots[slot.index]
+              const tileId = filled[slot.index]
               const tile = tileId ? question.tiles.find((t) => t.id === tileId) : null
+              // Helper letters keep the gold they have always had; letters the
+              // guest chose wear the plum of the tablet's own placed tiles, so
+              // the room can tell what was given from what was worked out.
+              const fromHint = slot.index in question.revealedSlots
               return (
                 <div
                   key={slot.index}
-                  className={`font-display flex h-24 w-20 items-center justify-center rounded-xl border-4 text-5xl font-bold ${
-                    tile ? 'border-gold bg-gold-light text-ink' : 'border-ink/20 border-dashed bg-white/50'
+                  className={`font-display flex h-24 w-20 items-center justify-center rounded-xl border-4 text-5xl font-bold transition-colors ${
+                    fromHint
+                      ? 'border-gold bg-gold-light text-ink'
+                      : tile
+                        ? 'border-plum bg-plum text-cream'
+                        : 'border-ink/20 border-dashed bg-white/50'
                   }`}
                 >
                   {tile?.char ?? ''}

@@ -3,8 +3,9 @@
 import { CountdownRing } from '@/components/CountdownRing'
 import { Button, DifficultyBadge } from '@/components/ui'
 import { plural } from '@/lib/plural'
+import { slotWords } from '@/lib/tiles'
 import { useCountdown } from '@/lib/useSession'
-import type { PublicState } from '@/lib/types'
+import type { PublicQuestion, PublicState } from '@/lib/types'
 import type { useSession } from '@/lib/useSession'
 
 type Actions = ReturnType<typeof useSession>['actions']
@@ -65,6 +66,11 @@ export function ModeratorConsole({ state, actions }: { state: PublicState; actio
         </p>
       </div>
 
+      {/* What the guest has tapped in, right under the answer: the host can see
+          at a glance how close they are, which is the difference between
+          pressing Corect now and giving them another few seconds. */}
+      <LiveBoard question={question} />
+
       <div className="mb-4 flex flex-wrap items-center gap-3">
         <Button
           size="xl"
@@ -97,5 +103,45 @@ export function ModeratorConsole({ state, actions }: { state: PublicState; actio
           ` ${plural(question.hintsUsed, 'literă ajutătoare folosită', 'litere ajutătoare folosite')}.`}
       </p>
     </section>
+  )
+}
+
+function LiveBoard({ question }: { question: PublicQuestion }) {
+  const filled: Record<number, string> = { ...question.livePlacement, ...question.revealedSlots }
+  const words = slotWords(question.slots)
+  const placed = Object.keys(filled).length
+  const total = question.slots.filter((s) => s.kind === 'letter').length
+
+  return (
+    <div className="mb-5">
+      <p className="text-ink-soft mb-2 text-xs font-semibold tracking-wide uppercase">
+        Ce a pus invitatul · {placed}/{total}
+      </p>
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+        {words.map((word) => (
+          <div key={word[0].index} className="flex flex-wrap items-center gap-1">
+            {word.map((slot) => {
+              const tileId = filled[slot.index]
+              const tile = tileId ? question.tiles.find((t) => t.id === tileId) : null
+              const fromHint = slot.index in question.revealedSlots
+              return (
+                <span
+                  key={slot.index}
+                  className={`font-display flex h-9 w-7 items-center justify-center rounded-md border-2 text-lg font-bold ${
+                    fromHint
+                      ? 'border-gold bg-gold-light text-ink'
+                      : tile
+                        ? 'border-plum bg-plum text-cream'
+                        : 'border-ink/20 border-dashed bg-white/60'
+                  }`}
+                >
+                  {tile?.char ?? ''}
+                </span>
+              )
+            })}
+          </div>
+        ))}
+      </div>
+    </div>
   )
 }

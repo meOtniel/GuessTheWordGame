@@ -155,6 +155,13 @@ export interface PublicQuestion {
   tiles: Tile[]
   slots: Slot[]
   revealedSlots: Record<number, string>
+  /**
+   * What the player has tapped in so far, mirrored live to the projector and
+   * the moderator console. Tile ids only, exactly like `revealedSlots`, so the
+   * answer still never reaches a screen that shouldn't have it. The tablet
+   * itself ignores this and stays authoritative over its own board.
+   */
+  livePlacement: Record<number, string>
   hintsUsed: number
   maxHints: number
   remainingMs: number

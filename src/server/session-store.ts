@@ -1,5 +1,5 @@
 import { answersMatch, normalizeRo } from '@/lib/normalize'
-import { buildSlots, buildTiles, chooseHint, maxHints, readPlacement } from '@/lib/tiles'
+import { buildSlots, buildTiles, chooseHint, letterSlots, maxHints, readPlacement } from '@/lib/tiles'
 import type {
   Attempt,
   ByDifficulty,
@@ -42,6 +42,17 @@ interface Store {
   lastSession: FinishedSession | null
   listeners: Set<Subscriber>
   warnings: string[]
+  /**
+   * The tiles the player has tapped into place but not yet submitted, so the
+   * projector and the moderator can watch the word come together.
+   *
+   * Deliberately NOT part of `Session`: it is a view of a half-finished
+   * thought, worth nothing once the turn moves on, and writing it to disk on
+   * every letter would churn the session file for no benefit. It is stamped
+   * with the turn it belongs to so a stale board can never bleed onto the next
+   * question.
+   */
+  live: { token: string; placement: Record<number, string> }
 }
 
 /**
@@ -79,6 +90,7 @@ function getStore(): Store {
       lastSession: loadLastSessionSync(),
       listeners: new Set(),
       warnings: [],
+      live: { token: '', placement: {} },
     }
   }
   return globalRef.__ghicesteStore
@@ -134,6 +146,82 @@ export function subscribe(listener: Listener, options: { host?: boolean } = {}):
   const subscriber: Subscriber = { send: listener, host: options.host === true }
   store.listeners.add(subscriber)
   return () => store.listeners.delete(subscriber)
+}
+
+// --- live board -------------------------------------------------------------
+
+/**
+ * Identifies the exact turn a live board belongs to.
+ *
+ * `wrongAttempts` is part of it on purpose: a rejected guess invalidates the
+ * token, so the projector empties the moment the answer is judged wrong rather
+ * than waiting for the tablet to report its own cleared board.
+ */
+function liveToken(session: Session): string {
+  return [
+    session.id,
+    session.currentPlayerIndex,
+    session.currentQuestionIndex,
+    session.wrongAttempts,
+  ].join(':')
+}
+
+/** The live board, but only if it still belongs to the turn being played. */
+function liveFor(session: Session): Record<number, string> {
+  const { live } = getStore()
+  return live.token === liveToken(session) ? live.placement : {}
+}
+
+/**
+ * Broadcast without persisting. Only the live board changes here, and that is
+ * the one piece of state we are content to lose on a restart.
+ */
+function commitLive(): PublicState {
+  const store = getStore()
+  let plain: PublicState | null = null
+  let host: PublicState | null = null
+
+  for (const subscriber of store.listeners) {
+    try {
+      if (subscriber.host) {
+        host ??= publicState({ host: true })
+        subscriber.send(host)
+      } else {
+        plain ??= publicState()
+        subscriber.send(plain)
+      }
+    } catch {
+      // A dead SSE connection must never break a mutation.
+    }
+  }
+
+  return plain ?? publicState()
+}
+
+/**
+ * Mirror the tablet's in-progress board to the other screens.
+ *
+ * Purely cosmetic: scoring still reads the placement that arrives with the
+ * submission, so a client that never reports — or reports a lie — changes what
+ * the room sees and nothing else.
+ */
+export function setLivePlacement(placement: Record<number, string>): PublicState {
+  const store = getStore()
+  const session = store.session
+  if (!session || session.phase !== 'question') return publicState()
+
+  // Keep only tiles that exist and slots that can actually hold a letter, so a
+  // malformed report can't paint characters into the gaps between words.
+  const tileIds = new Set(session.tiles.map((t) => t.id))
+  const letterIndexes = new Set(letterSlots(session.slots).map((s) => s.index))
+  const clean: Record<number, string> = {}
+  for (const [slot, tileId] of Object.entries(placement)) {
+    const index = Number(slot)
+    if (letterIndexes.has(index) && tileIds.has(tileId)) clean[index] = tileId
+  }
+
+  store.live = { token: liveToken(session), placement: clean }
+  return commitLive()
 }
 
 // --- lifecycle --------------------------------------------------------------
@@ -531,6 +619,7 @@ function buildPublicQuestion(session: Session, now: number): PublicQuestion | nu
     tiles: session.tiles,
     slots: session.slots,
     revealedSlots: session.revealedSlots,
+    livePlacement: liveFor(session),
     hintsUsed,
     maxHints: maxHints(question.answer),
     remainingMs: Math.max(0, limit - elapsed),

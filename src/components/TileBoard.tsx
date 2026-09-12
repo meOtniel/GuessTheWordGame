@@ -13,6 +13,8 @@ interface Props {
   onSubmit: (placement: Record<number, string>) => void
   /** Bumped by the parent on a wrong answer to shake and clear the board. */
   wrongSignal: number
+  /** Mirrors the board to the projector and the moderator as it is built. */
+  onPlacementChange?: (placement: Record<number, string>) => void
 }
 
 /** Tiles shrink as answers get longer so even a 16-letter word fits one screen.
@@ -25,7 +27,15 @@ function tileSize(letterCount: number): string {
   return 'clamp(1.65rem, 5.8vw, 2.5rem)'
 }
 
-export function TileBoard({ tiles, slots, revealedSlots, disabled = false, onSubmit, wrongSignal }: Props) {
+export function TileBoard({
+  tiles,
+  slots,
+  revealedSlots,
+  disabled = false,
+  onSubmit,
+  wrongSignal,
+  onPlacementChange,
+}: Props) {
   const [placement, setPlacement] = useState<Record<number, string>>({})
   const [shaking, setShaking] = useState(false)
   const letterSlots = useMemo(() => slots.filter((s) => s.kind === 'letter'), [slots])
@@ -69,6 +79,16 @@ export function TileBoard({ tiles, slots, revealedSlots, disabled = false, onSub
     // re-trigger a shake.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [wrongSignal])
+
+  // Report the board upward on every change, coalesced so a guest drumming on
+  // the tiles sends one update rather than one per finger. The tablet stays
+  // authoritative throughout — this only ever tells, never asks.
+  const reportRef = useRef(onPlacementChange)
+  reportRef.current = onPlacementChange
+  useEffect(() => {
+    const id = setTimeout(() => reportRef.current?.(placement), 80)
+    return () => clearTimeout(id)
+  }, [placement])
 
   const placedIds = useMemo(() => new Set(Object.values(placement)), [placement])
   const pool = useMemo(() => tiles.filter((t) => !placedIds.has(t.id)), [tiles, placedIds])
