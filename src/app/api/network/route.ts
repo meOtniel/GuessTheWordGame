@@ -1,6 +1,7 @@
 import { networkInterfaces } from 'node:os'
 import { NextResponse } from 'next/server'
 import QRCode from 'qrcode'
+import { accessCodes } from '@/server/access'
 
 export const dynamic = 'force-dynamic'
 
@@ -40,6 +41,7 @@ function classify(name: string): { likely: boolean; note?: string } {
 
 export async function GET(request: Request) {
   const port = new URL(request.url).port || '3000'
+  const { guest } = accessCodes()
   const candidates: Candidate[] = []
 
   for (const [name, addresses] of Object.entries(networkInterfaces())) {
@@ -50,8 +52,10 @@ export async function GET(request: Request) {
       candidates.push({
         label: name,
         address: address.address,
-        playUrl: `${base}/play`,
-        displayUrl: `${base}/display`,
+        // The guest code rides along in the link, so scanning the QR gets the
+        // tablet all the way into the game rather than onto a code prompt.
+        playUrl: `${base}/play?k=${guest}`,
+        displayUrl: `${base}/display?k=${guest}`,
         likely,
         note,
       })
@@ -72,8 +76,11 @@ export async function GET(request: Request) {
     ),
   )
 
+  // Only the moderator console can reach this route, so it is also the right
+  // place to tell the host the code to read out to anyone typing it by hand.
   return NextResponse.json({
     port,
+    guestCode: guest,
     candidates: candidates.map((candidate, i) => ({ ...candidate, qr: qr[i] })),
   })
 }

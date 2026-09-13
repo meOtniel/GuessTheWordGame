@@ -34,6 +34,13 @@ export function useSession(options: { host?: boolean } = {}) {
       pollTimer = setInterval(async () => {
         try {
           const res = await fetch(`/api/session${host ? '?host=1' : ''}`, { cache: 'no-store' })
+          // The access cookie expired or was cleared mid-game: send the device
+          // back to the code screen rather than letting it poll a dead stream.
+          if (res.status === 401) {
+            window.location.replace(`/access?next=${encodeURIComponent(window.location.pathname)}`)
+            return
+          }
+          if (!res.ok) return
           const data = await res.json()
           if (!cancelled) apply(data.state)
         } catch {

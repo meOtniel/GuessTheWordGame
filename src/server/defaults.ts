@@ -15,7 +15,11 @@ import type { SessionConfig } from '@/lib/types'
  * costs an eighth — and solving with no letters at all pays 10% on top. A
  * perfect turn is 3*110 + 2*165 + 220 = 880.
  *
- * Every value here is editable on the setup screen.
+ * The setup screen edits the players, categories, question profile and clocks;
+ * the host panel can retune the clocks again mid-session. The scoring constants
+ * below — bases, hint share, clean bonus, floors — are fixed for the evening on
+ * purpose, so no mid-game tweak can make one guest's turn score by different
+ * rules than the turn before it.
  */
 export const DEFAULT_CONFIG: SessionConfig = {
   playerNames: [],

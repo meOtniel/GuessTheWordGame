@@ -1,9 +1,10 @@
 import assert from 'node:assert/strict'
 import { test } from 'node:test'
 import { answerLetters } from '@/lib/normalize'
-import { buildLeaderboard, cleanBonus, nextHintCost, perfectTurnScore, scoreCorrect } from '@/server/scoring'
+import { buildLeaderboard, cleanBonus, liveScore, nextHintCost, perfectTurnScore, scoreCorrect } from '@/lib/scoring'
+import { buildSlots } from '@/lib/tiles'
 import { DEFAULT_CONFIG } from '@/server/defaults'
-import type { Attempt, Difficulty, Player } from '@/lib/types'
+import type { Attempt, Difficulty, Player, PublicQuestion } from '@/lib/types'
 
 const { basePoints, timeouts, hintPenaltyShare, cleanBonusRatio, timeFloor, minScore } = DEFAULT_CONFIG
 const base = { basePoints, timeouts, hintPenaltyShare, cleanBonusRatio, timeFloor, minScore }
@@ -216,4 +217,51 @@ test('players level on every criterion share a rank', () => {
 test('host adjustments count toward the total', () => {
   const rows = buildLeaderboard([player('Ana', [attempt({ points: 100 })], 50)])
   assert.equal(rows[0].points, 150)
+})
+
+// --- the figures on screen --------------------------------------------------
+
+/** A minimal live question: only the fields liveScore actually reads. */
+const publicQuestion = (difficulty: Difficulty, letterCount: number, hintsUsed: number): PublicQuestion =>
+  ({
+    difficulty,
+    timeoutSec: DEFAULT_CONFIG.timeouts[difficulty],
+    hintsUsed,
+    slots: buildSlots('A'.repeat(letterCount)),
+  }) as PublicQuestion
+
+test('the screen recomputes the same figures the server would award', () => {
+  // The two must agree exactly, or the tablet quotes a price the server does
+  // not honour — which is precisely what a stale push used to do.
+  for (const [difficulty, letters] of [['easy', 8], ['medium', 10], ['hard', 12]] as const) {
+    const totalMs = DEFAULT_CONFIG.timeouts[difficulty] * 1000
+    for (let elapsed = 0; elapsed <= totalMs; elapsed += 250) {
+      for (const hints of [0, 1, 4]) {
+        const onScreen = liveScore(publicQuestion(difficulty, letters, hints), DEFAULT_CONFIG, totalMs - elapsed)
+        const server = input(difficulty, elapsed, hints, letters)
+        assert.equal(onScreen.points, scoreCorrect(server), `points at ${elapsed}ms, ${hints} hints`)
+        assert.equal(onScreen.hintCost, nextHintCost(server), `hint cost at ${elapsed}ms, ${hints} hints`)
+        assert.equal(onScreen.cleanBonus, cleanBonus(server), `bonus at ${elapsed}ms, ${hints} hints`)
+      }
+    }
+  }
+})
+
+test('the quoted hint cost survives the delay between reading it and tapping it', () => {
+  // The regression: the price was read off a push up to a heartbeat old, so the
+  // score fell by the letter *plus* five seconds of unshown decay. Ticking the
+  // clock locally keeps the gap to the render tick, which quantisation absorbs.
+  const totalMs = DEFAULT_CONFIG.timeouts.medium * 1000
+  for (let elapsed = 0; elapsed <= totalMs - 1000; elapsed += 100) {
+    const shown = liveScore(publicQuestion('medium', 10, 0), DEFAULT_CONFIG, totalMs - elapsed)
+    // Worst case the tap lands one render tick later, still inside the second.
+    const afterTap = scoreCorrect(input('medium', elapsed + 99, 1, 10))
+    assert.equal(shown.points - afterTap, shown.hintCost, `at ${elapsed}ms`)
+  }
+})
+
+test('a clock past the buzzer still prices the question, it does not go negative', () => {
+  const late = liveScore(publicQuestion('easy', 8, 0), DEFAULT_CONFIG, -5_000)
+  assert.equal(late.points, scoreCorrect(input('easy', DEFAULT_CONFIG.timeouts.easy * 1000, 0, 8)))
+  assert.ok(late.hintCost >= 0)
 })

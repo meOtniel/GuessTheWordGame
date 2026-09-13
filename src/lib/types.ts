@@ -107,6 +107,19 @@ export interface Session {
   phase: Phase
   /** Epoch ms when the current question's clock started. */
   questionStartedAt: number | null
+  /**
+   * The clock the current question was started on, pinned at that moment.
+   *
+   * The host can retune the timeouts mid-session, and the panel promises the
+   * change lands on questions that have not started yet. Reading the live
+   * config instead would move the goalposts under a guest already playing:
+   * shortening the hard clock from 50s to 30s while they were 35 seconds in
+   * expired the question on the spot and banked a zero. It is also the decay
+   * denominator, so pinning it keeps the points on screen honest too.
+   *
+   * Absent on sessions written by an older build; the config is the fallback.
+   */
+  questionTimeoutSec?: number
   /** Epoch ms when the host paused, or null when running. */
   pausedAt: number | null
   /** Total paused time already accumulated on the current question. */

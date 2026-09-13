@@ -3,6 +3,7 @@
 import { CountdownRing } from '@/components/CountdownRing'
 import { Button, DifficultyBadge } from '@/components/ui'
 import { plural } from '@/lib/plural'
+import { liveScore } from '@/lib/scoring'
 import { slotWords } from '@/lib/tiles'
 import { useCountdown } from '@/lib/useSession'
 import type { PublicQuestion, PublicState } from '@/lib/types'
@@ -28,6 +29,11 @@ export function ModeratorConsole({ state, actions }: { state: PublicState; actio
   if (!question) return null
 
   const hintsLeft = question.maxHints - question.hintsUsed
+  // The console's numbers are promises: the Corect button names the points the
+  // press will award, so it has to track the clock rather than the last push.
+  const live = state.config
+    ? liveScore(question, state.config, remaining)
+    : { points: question.livePoints, hintCost: question.hintCost, cleanBonus: question.cleanBonus }
 
   return (
     <section className="border-plum bg-plum/5 rounded-2xl border-2 p-5">
@@ -78,7 +84,7 @@ export function ModeratorConsole({ state, actions }: { state: PublicState; actio
           disabled={state.paused}
           className="bg-easy hover:bg-easy flex-1 text-white hover:opacity-90"
         >
-          ✓ Corect — {question.livePoints} puncte
+          ✓ Corect — {live.points} puncte
         </Button>
         <Button
           size="lg"
@@ -90,7 +96,7 @@ export function ModeratorConsole({ state, actions }: { state: PublicState; actio
           <span className="text-ink-soft ml-2 text-xs font-normal">
             {hintsLeft > 0 && !question.hintAvailable
               ? 'ultima literă e a lui'
-              : `−${question.hintCost}p acum · ${plural(hintsLeft, 'rămasă', 'rămase')}`}
+              : `−${live.hintCost}p acum · ${plural(hintsLeft, 'rămasă', 'rămase')}`}
           </span>
         </Button>
         <Button size="lg" variant="secondary" disabled={state.paused} onClick={() => void actions.judge(false)}>
@@ -103,7 +109,7 @@ export function ModeratorConsole({ state, actions }: { state: PublicState; actio
         moment, deci nu mai aștepți să termine de atins literele.
         {question.hintsUsed > 0
           ? ` ${plural(question.hintsUsed, 'literă ajutătoare folosită', 'litere ajutătoare folosite')}.`
-          : ` Încă fără ajutor — bonusul de +${question.cleanBonus} e în punctajul de mai sus.`}
+          : ` Încă fără ajutor — bonusul de +${live.cleanBonus} e în punctajul de mai sus.`}
       </p>
     </section>
   )

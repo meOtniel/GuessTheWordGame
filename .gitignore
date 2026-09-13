@@ -8,4 +8,7 @@ next-env.d.ts
 data/session.json
 data/last-session.json
 
+# Access codes — generated on first boot, unique to this installation
+data/access.json
+
 .DS_Store

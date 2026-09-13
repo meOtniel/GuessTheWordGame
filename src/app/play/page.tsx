@@ -8,6 +8,7 @@ import { Leaderboard, Podium } from '@/components/Leaderboard'
 import { TileBoard } from '@/components/TileBoard'
 import { Button, DifficultyBadge } from '@/components/ui'
 import { plural } from '@/lib/plural'
+import { liveScore } from '@/lib/scoring'
 import { useCountdown, useSession } from '@/lib/useSession'
 
 export default function PlayPage() {
@@ -95,6 +96,12 @@ export default function PlayPage() {
 
   if (state.phase === 'question' && question) {
     const hintsLeft = question.maxHints - question.hintsUsed
+    // Priced off the countdown the player is watching, not off the server's
+    // last push — see liveScore(). The server's own figures are the fallback
+    // for the impossible case of a question without a config behind it.
+    const live = state.config
+      ? liveScore(question, state.config, remaining)
+      : { points: question.livePoints, hintCost: question.hintCost, cleanBonus: question.cleanBonus }
     return (
       <main className="mx-auto flex min-h-screen w-full max-w-5xl flex-col px-4 py-6">
         <header className="mb-4 flex items-start justify-between gap-4">
@@ -150,16 +157,16 @@ export default function PlayPage() {
             <span className="text-ink-soft ml-2 text-sm font-normal">
               {hintsLeft > 0 && !question.hintAvailable
                 ? 'ultima literă e a ta'
-                : `−${question.hintCost}p acum · ${plural(hintsLeft, 'rămasă', 'rămase')}`}
+                : `−${live.hintCost}p acum · ${plural(hintsLeft, 'rămasă', 'rămase')}`}
             </span>
           </Button>
           <div className="text-right">
             <p className="text-ink-soft text-xs tracking-wide uppercase">Valorează acum</p>
-            <p className="font-display text-plum text-4xl font-bold tabular-nums">{question.livePoints}</p>
+            <p className="font-display text-plum text-4xl font-bold tabular-nums">{live.points}</p>
             {/* Says out loud what the first helper letter would hand back, so the
                 button's price is never a surprise. */}
-            {question.cleanBonus > 0 && (
-              <p className="text-gold text-xs font-semibold">include +{question.cleanBonus} fără ajutor</p>
+            {live.cleanBonus > 0 && (
+              <p className="text-gold text-xs font-semibold">include +{live.cleanBonus} fără ajutor</p>
             )}
           </div>
         </footer>

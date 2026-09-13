@@ -27,7 +27,7 @@ import {
   questionMax,
   scoreCorrect,
   type ScoreInput,
-} from './scoring'
+} from '@/lib/scoring'
 
 export interface CreateSessionInput {
   playerNames: string[]
@@ -123,8 +123,12 @@ function currentQuestion(session: Session): Question | null {
   return player?.questions[session.currentQuestionIndex] ?? null
 }
 
+function timeoutSecFor(session: Session, question: Question): number {
+  return session.questionTimeoutSec ?? session.config.timeouts[question.difficulty]
+}
+
 function timeoutMsFor(session: Session, question: Question): number {
-  return session.config.timeouts[question.difficulty] * 1000
+  return timeoutSecFor(session, question) * 1000
 }
 
 /**
@@ -140,7 +144,10 @@ function scoreInputFor(session: Session, question: Question, elapsed: number, hi
     hintsUsed,
     letterCount: answerLetters(question.answer).length,
     basePoints,
-    timeouts,
+    // The question's own pinned clock, not whatever the host has since dialled
+    // the tier to — the decay must be measured against the clock the guest is
+    // actually racing.
+    timeouts: { ...timeouts, [question.difficulty]: timeoutSecFor(session, question) },
     hintPenaltyShare,
     cleanBonusRatio,
     timeFloor,
@@ -337,6 +344,7 @@ function beginQuestion(session: Session): void {
   session.slots = buildSlots(question.answer)
   session.revealedSlots = {}
   session.wrongAttempts = 0
+  session.questionTimeoutSec = session.config.timeouts[question.difficulty]
   session.questionStartedAt = Date.now()
   session.pausedAt = null
   session.pausedMs = 0
@@ -612,6 +620,8 @@ export function updateTimeouts(timeouts: ByDifficulty<number>): PublicState {
   const session = getStore().session
   if (!session) return publicState()
   session.config.timeouts = timeouts
+  // A question already running keeps the clock it started on — see
+  // Session.questionTimeoutSec. The next one picks the new value up.
   return commit()
 }
 
@@ -643,7 +653,7 @@ function buildPublicQuestion(session: Session, now: number): PublicQuestion | nu
   if (!question) return null
 
   const player = session.players[session.currentPlayerIndex]
-  const { basePoints, timeouts } = session.config
+  const { basePoints } = session.config
   const elapsed = elapsedMs(session, now)
   const limit = timeoutMsFor(session, question)
   const hintsUsed = Object.keys(session.revealedSlots).length
@@ -656,7 +666,7 @@ function buildPublicQuestion(session: Session, now: number): PublicQuestion | nu
     difficulty: question.difficulty,
     categoryName: categoryNameFor(question),
     categoryIcon: categoryIconFor(question),
-    timeoutSec: timeouts[question.difficulty],
+    timeoutSec: timeoutSecFor(session, question),
     basePoints: basePoints[question.difficulty],
     hintCost: nextHintCost(scoring),
     tiles: session.tiles,

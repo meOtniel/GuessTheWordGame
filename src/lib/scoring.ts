@@ -1,4 +1,13 @@
-import type { Attempt, ByDifficulty, Difficulty, LeaderboardRow, Player, SessionConfig } from '@/lib/types'
+import { letterSlots } from './tiles'
+import type {
+  Attempt,
+  ByDifficulty,
+  Difficulty,
+  LeaderboardRow,
+  Player,
+  PublicQuestion,
+  SessionConfig,
+} from '@/lib/types'
 
 export interface ScoreInput {
   difficulty: Difficulty
@@ -167,4 +176,48 @@ export function buildLeaderboard(players: Player[]): LeaderboardRow[] {
   })
 
   return rows
+}
+
+/**
+ * The same three figures the tablet and the console put on screen, derived from
+ * a clock the caller supplies rather than from the server's last push.
+ *
+ * The server only speaks when something happens — a tap, a hint, a heartbeat
+ * five seconds apart — but the question is losing value continuously in
+ * between. Reading `livePoints` and `hintCost` straight off the last push
+ * therefore quoted a price up to five seconds old: the button offered a helper
+ * letter at −21p and the score fell by 30, because the drop the player saw was
+ * the letter *plus* the decay the frozen readout had never shown. Recomputing
+ * from the interpolated countdown — the one already driving the ring — keeps
+ * every number on screen moving with the clock the player is watching, so the
+ * quoted cost is the cost.
+ *
+ * Pure, and the inputs (`config`, slots, hints used) are all already public, so
+ * this runs client-side without the answer ever coming near a browser.
+ */
+export function liveScore(
+  question: PublicQuestion,
+  config: SessionConfig,
+  remainingMs: number,
+): { points: number; hintCost: number; cleanBonus: number } {
+  const totalMs = question.timeoutSec * 1000
+  const input: ScoreInput = {
+    difficulty: question.difficulty,
+    // The server sends `remainingMs` off the same unrounded clock it scores
+    // with, so turning it back into elapsed reproduces the server's own figure
+    // to within the render tick — and the whole-second quantisation in
+    // `timedValue` absorbs that.
+    elapsedMs: Math.min(totalMs, Math.max(0, totalMs - remainingMs)),
+    hintsUsed: question.hintsUsed,
+    // One letter slot per letter of the answer: the same denominator the
+    // server priced the letter against.
+    letterCount: letterSlots(question.slots).length,
+    basePoints: config.basePoints,
+    timeouts: config.timeouts,
+    hintPenaltyShare: config.hintPenaltyShare,
+    cleanBonusRatio: config.cleanBonusRatio,
+    timeFloor: config.timeFloor,
+    minScore: config.minScore,
+  }
+  return { points: scoreCorrect(input), hintCost: nextHintCost(input), cleanBonus: cleanBonus(input) }
 }

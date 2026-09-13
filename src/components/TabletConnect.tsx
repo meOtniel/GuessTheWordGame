@@ -20,6 +20,7 @@ interface Candidate {
  */
 export function TabletConnect() {
   const [candidates, setCandidates] = useState<Candidate[] | null>(null)
+  const [guestCode, setGuestCode] = useState<string | null>(null)
   const [open, setOpen] = useState(false)
   const [copied, setCopied] = useState<string | null>(null)
 
@@ -27,7 +28,10 @@ export function TabletConnect() {
     if (!open || candidates) return
     void fetch('/api/network', { cache: 'no-store' })
       .then((r) => r.json())
-      .then((data) => setCandidates(data.candidates))
+      .then((data) => {
+        setCandidates(data.candidates)
+        setGuestCode(data.guestCode ?? null)
+      })
       .catch(() => setCandidates([]))
   }, [open, candidates])
 
@@ -69,6 +73,16 @@ export function TabletConnect() {
         </Button>
       </div>
 
+      {guestCode && (
+        <div className="border-plum/20 bg-plum/5 mb-4 rounded-xl border p-4 text-center">
+          <p className="text-ink-soft text-xs font-semibold tracking-wide uppercase">Codul invitaților</p>
+          <p className="font-display text-plum mt-1 text-3xl font-bold tracking-[0.3em]">{guestCode}</p>
+          <p className="text-ink-soft mt-1 text-sm">
+            Scanarea codului QR îl trimite singură. E nevoie de el doar dacă adresa se tastează de mână.
+          </p>
+        </div>
+      )}
+
       {candidates === null && <p className="text-ink-soft">Se caută adresele…</p>}
       {candidates?.length === 0 && (
         <p className="text-hard">Nicio adresă de rețea găsită. Conectează laptopul la Wi-Fi.</p>
@@ -107,6 +121,7 @@ export function TabletConnect() {
       <ol className="border-ink/10 text-ink-soft mt-5 flex list-decimal flex-col gap-1.5 border-t pt-4 pl-5 text-sm marker:font-bold">
         <li>Pune tableta pe aceeași rețea Wi-Fi ca laptopul.</li>
         <li>Scanează codul sau tastează adresa în browserul tabletei.</li>
+        <li>Dacă tableta cere un cod, e cel de mai sus.</li>
         <li>Dacă nu merge: oprește VPN-ul pe laptop și permite Node.js în Windows Firewall.</li>
       </ol>
     </Card>

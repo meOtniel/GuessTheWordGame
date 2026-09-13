@@ -25,7 +25,9 @@ npm run event
 ```
 
 Nu e nevoie de niciun fișier de configurare, de nicio cheie și de niciun pas de
-inițializare. Întrebările sunt deja în proiect.
+inițializare. Întrebările sunt deja în proiect, iar codurile de acces se
+generează singure la prima pornire și se afișează în terminal — vezi
+[Codul de acces](#codul-de-acces).
 
 **Cerințe:** Node.js 20 sau mai nou (`node --version`).
 
@@ -77,6 +79,47 @@ chiar poate să nu meargă în seara respectivă.
 
 Dacă nu ai tabletă, deschide `/play` pe laptop și dă-l din mână în mână.
 Totul funcționează identic.
+
+---
+
+## Codul de acces
+
+Jocul cere un cod la intrare, ca să nu ajungă pe el oricine e pe aceeași rețea
+Wi-Fi. Nu ai nimic de configurat: la prima pornire se generează două coduri,
+se scriu în `data/access.json` și se afișează în terminal.
+
+```
+  Coduri de acces
+    invitați (tabletă, proiector): HT2X4Z
+    gazdă (consola, arată răspunsurile): 43KADV
+  Le vezi oricând pe http://localhost:3000/codes (doar de pe laptopul ăsta).
+```
+
+| Codul | Deschide | Cine îl primește |
+|---|---|---|
+| **invitați** | `/play`, `/display` și pagina de start | tableta și proiectorul |
+| **gazdă** | tot, inclusiv `/admin` | doar tu |
+
+Sunt două și nu unul pentru că `/admin` arată răspunsul întrebării curente. Cu
+un singur cod, oricine intră în joc ar putea deschide consola și citi cuvântul
+înainte să-l ghicească.
+
+**Pe tabletă nu trebuie tastat nimic.** Codul QR din „Conectează tableta" duce
+codul invitaților cu el, așa că scanarea intră direct în joc. Codul scris e
+necesar doar dacă adresa se tastează de mână — îl găsești tot acolo, pe consolă.
+
+**Dacă terminalul a defilat prea departe:** deschide `http://localhost:3000/codes` pe
+laptopul care ține jocul și ai ambele coduri pe ecran, destul de mari cât să le
+citești de la distanță. Pagina răspunde doar pe laptopul acela — de pe tabletă e un 404, ca să nu ajungă codul gazdei la invitați.
+
+**Ca să schimbi codurile:** șterge `data/access.json` și repornește. Fișierul nu
+se urcă în git, deci fiecare instalare are codurile ei.
+
+**Ce nu acoperă.** Jocul merge pe `http://`, nu pe `https://`, fiindcă un
+certificat pe rețeaua locală ar însemna un avertisment de securitate pe tabletă
+exact în seara nunții. Asta înseamnă că un cod tastat circulă necriptat prin
+rețea: e o încuietoare bună împotriva cuiva care nimerește adresa, nu împotriva
+cuiva care ascultă traficul. Nu pune codul gazdei pe proiector.
 
 ---
 
